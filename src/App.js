@@ -5,7 +5,9 @@ import ScrollTop from 'components/ScrollTop';
 
 function App() {
   return (
-    <Routes />
+    <ThemeCustomization>
+      <h1></h1>
+    </ThemeCustomization>
   );
 }
 
