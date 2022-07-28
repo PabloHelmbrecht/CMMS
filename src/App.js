@@ -1,12 +1,14 @@
 //import Routes from 'routes';
 import ThemeCustomization from './themes';
-//import ScrollTop from './components/ScrollTop';
+import ScrollTop from './components/ScrollTop';
 
 
 function App() {
   return (
     <ThemeCustomization>
-      <h1>Holaa</h1>
+      <ScrollTop>
+        <h1>Holaa</h1>
+      </ScrollTop>
     </ThemeCustomization>
   );
 }
