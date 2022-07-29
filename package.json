@@ -48,7 +48,9 @@
     "#layout/*": "./src/layout/*",
     "#assets/*": "./src/assets/*",
     "#menu-items/*": "./src/menu-items/*",
-    "#utils/*": "./src/utils/*" 
+    "#utils/*": "./src/utils/*",
+    "#config": "./src/config.js",
+    "#menu-items": "./src/menu-items"
   } ,
   "scripts": {
     "start": "react-scripts start",
