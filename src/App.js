@@ -3,14 +3,14 @@ import { BrowserRouter } from "react-router-dom";
 
 // import themes
 import ThemeCustomization from "./themes";
-//import ScrollTop from "#components/ScrollTop";
-import Routes from "./routes"
+//import ScrollTop from "../components/ScrollTop";
+import Routes from "./routes";
 
 function App() {
   return (
     <ThemeCustomization>
       <BrowserRouter>
-        <Routes/>
+        <Routes />
       </BrowserRouter>
     </ThemeCustomization>
   );
