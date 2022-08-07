@@ -25,6 +25,9 @@ const Shadow = Loadable(
 const AntIcons = Loadable(
   lazy(() => import("../pages/components-overview/AntIcons"))
 );
+const Equipos= Loadable(
+  lazy(() => import("../pages/elementos/Equipos"))
+);
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -64,6 +67,10 @@ const MainRoutes = {
     {
       path: "icons/ant",
       element: <AntIcons />
+    },
+    {
+      path: "elementos/equipos",
+      element: <Equipos/>
     }
   ]
 };

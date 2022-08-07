@@ -13,6 +13,3 @@ body::-webkit-scrollbar-thumb {
   background-color: rgb(128, 128, 128, 0.5);
 }
 
-.simplebar-scrollbar::before {
-  background-color: red !important;
-}
