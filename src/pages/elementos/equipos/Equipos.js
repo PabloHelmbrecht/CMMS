@@ -1,63 +1,50 @@
 // material-ui
-import {
-  Box,
-  Button,
-  Grid,
-  Stack,
-  TextField,
-  Typography
-} from "@mui/material";
-
+import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 
 // project import
 import MainCard from "../../../components/MainCard";
 import StatisticsCard from "../../../components/cards/statistics/StatisticsCard";
 import IncomeAreaChart from "../../dashboard/IncomeAreaChart";
 import { useEffect, useState } from "react";
+import DataGrid from "./DataGrid-Equipos";
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const Equipos = () => {
-
   const [slot, setSlot] = useState("week");
 
   const [statistics, setStatistics] = useState({
-    "Card1": {
+    Card1: {
       title: "Total de Equipos",
       count: "4.000",
       percentage: -24,
       extra: "20,000"
     },
-    "Card2": {
+    Card2: {
       title: "Componentes por Equipo",
       count: "4.000",
       percentage: 24,
       extra: "20,000"
     },
-    "Card3": {
+    Card3: {
       title: "Elementos por Equipo",
       count: "4.000",
       percentage: 24,
       extra: "20,000"
     },
-    "Card4": {
+    Card4: {
       title: "Actividades por Equipo",
       count: "4.000",
       percentage: 24,
       extra: "20,000"
-    },
-  })
+    }
+  });
 
   //Actualizo los indicadores cuando se actualiza la base de datos
-  useEffect(() => {
-
-
-  }, [])
-
+  useEffect(() => {}, []);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-
       {/* Fila 1: Titulo Indicadores */}
       <Grid item xs={12} sx={{ mb: -2.25 }}>
         <Typography variant="h5">Indicadores</Typography>
@@ -113,10 +100,8 @@ const Equipos = () => {
 
       {/* Fila 3: Tabla */}
       <Grid item xs={12} md={12} lg={12}>
-
         {/* Título y Botones de Tabla */}
         <Grid container alignItems="center" justifyContent="space-between">
-
           {/* Título de Tabla */}
           <Grid item>
             <Typography variant="h5">Equipos</Typography>
@@ -148,12 +133,12 @@ const Equipos = () => {
         {/*Tabla*/}
         <MainCard content={false} sx={{ mt: 1.5 }}>
           <Box sx={{ pt: 1, pr: 2 }}>
-            <IncomeAreaChart slot={slot} />
+            <DataGrid />
           </Box>
         </MainCard>
       </Grid>
     </Grid>
-  )
+  );
 };
 
 export default Equipos;
