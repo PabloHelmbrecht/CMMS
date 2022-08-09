@@ -21,7 +21,7 @@ const utilities = {
             type: 'item',
             url: '/elementos/equipos',
             icon: icons.ClusterOutlined,
-            breadcrumbs: true
+            breadcrumbs: false
         }
     ]
 };

@@ -12,20 +12,21 @@ const DrawerContent = () => (
         display: "flex",
         flexDirection: "column"
       },
-      /* Stylized scrollbar
-      "overflow-y": "scroll",
+
+      "overflow-y": "overlay",
       "::-webkit-scrollbar-track": {
         "border-radius": "0px",
-        "background-color": "white"
+        "background-color": "rgb(128, 128, 128, 0)",
       },
       "::-webkit-scrollbar": {
         "width": "7px",
-        "background-color": "white"
+        "background-color": "rgb(128, 128, 128, 0)",
       },
       "::-webkit-scrollbar-thumb": {
         "border-radius": "10px",
-        "background-color": "rgb(128, 128, 128, 0.5)"
-      }*/
+        "background-color": "rgb(128, 128, 128, 0.5)",
+
+      }
     }}
   >
     <Navigation />

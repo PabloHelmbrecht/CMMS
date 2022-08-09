@@ -26,7 +26,7 @@ const AntIcons = Loadable(
   lazy(() => import("../pages/components-overview/AntIcons"))
 );
 const Equipos= Loadable(
-  lazy(() => import("../pages/elementos/Equipos"))
+  lazy(() => import("../pages/elementos/equipos/Equipos"))
 );
 
 // ==============================|| MAIN ROUTING ||============================== //
