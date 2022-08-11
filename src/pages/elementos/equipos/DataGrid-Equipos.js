@@ -6,7 +6,9 @@ import {
   WarningOutlined,
   ExclamationCircleOutlined,
   CheckCircleOutlined,
-  PlusCircleOutlined
+  PlusCircleOutlined,
+  CloseOutlined,
+  CheckOutlined
 } from "@ant-design/icons";
 
 const columns = [
@@ -62,15 +64,26 @@ const columns = [
     headerName: "Estado",
     type: "singleSelect",
     valueOptions: ["Activo","Parado"],
-    minWidth: 50,
+    minWidth: 100,
     flex: 1,
     editable: true,
     renderCell: ({ value }) => {
-      
-      if(value=="Activo"){
-        value = <><ExclamationCircleOutlined /> Activo</>
-      }
-      return value
+      return (
+        <Chip
+          variant="outlined"
+          color="default"
+          label={value}
+          icon={value==='Activo'?<CheckOutlined />:<CloseOutlined />}
+          sx={{
+            border: '0px',
+            display: 'flex',
+            'flex-direction': 'row',
+            'align-content': 'center',
+            'justify-content': 'center',
+            'align-items': 'center'
+          }}
+        />
+      );
     }
   },
   {
