@@ -10,11 +10,11 @@ import {
 } from "@ant-design/icons";
 
 const columns = [
-  { field: "id", headerName: "ID", minWidth: 20, flex: 1 },
+  { field: "id", headerName: "ID", minWidth: 40, flex: 1 },
   {
     field: "equipo",
     headerName: "Equipo",
-    minWidth: 50,
+    minWidth: 80,
     flex: 2,
     editable: true
   },
@@ -23,7 +23,7 @@ const columns = [
     headerName: "Criticidad",
     type: "singleSelect",
     valueOptions: ["Muy Alta", "Alta", "Media", "Baja"],
-    minWidth: 150,
+    minWidth: 120,
     flex: 1,
     editable: true,
     renderCell: ({ value }) => {
