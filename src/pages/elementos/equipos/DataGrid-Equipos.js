@@ -2,7 +2,12 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { Chip } from "@mui/material";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import {
+  WarningOutlined,
+  ExclamationCircleOutlined,
+  CheckCircleOutlined,
+  PlusCircleOutlined
+} from "@ant-design/icons";
 
 const columns = [
   { field: "id", headerName: "ID", minWidth: 20, flex: 1 },
@@ -22,36 +27,51 @@ const columns = [
     flex: 1,
     editable: true,
     renderCell: ({ value }) => {
-      //renderizar de una forma cada etiqueta ver si usar switch u otro
-      switch (value) {
-        case value == "Muy Alta":
-          <Chip
-            variant="outlined"
-            color="warning"
-            label={value}
-            icon={<ExclamationCircleOutlined />}
-          />;
-          break;
+      const chipParams = {
+        "Muy Alta": {
+          color: "error",
+          icon: <WarningOutlined />
+        },
+        Alta: {
+          color: "warning",
+          icon: <ExclamationCircleOutlined />
+        },
+        Media: {
+          color: "primary",
+          icon:<PlusCircleOutlined />
+        },
+        Baja: {
+          color: "success",
+          icon: <CheckCircleOutlined />
+        }
+      };
 
-        default:
-          break;
-      }
+    
       return (
         <Chip
           variant="outlined"
-          color="warning"
+          color={chipParams.[value].color}
           label={value}
-          icon={<ExclamationCircleOutlined />}
+          icon={chipParams.[value].icon}
         />
       );
     }
   },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 110,
-    editable: true
+    field: "status",
+    headerName: "Estado",
+    type: "singleSelect",
+    valueOptions: ["Activo","Parado"],
+    minWidth: 50,
+    flex: 1,
+    editable: true,
+    renderCell: ({ value }) => {
+      
+      if(value=="Activo"){
+        value = <><ExclamationCircleOutlined /> Activo</>
+      }
+      return value
+    }
   },
   {
     field: "fullName",
@@ -65,15 +85,15 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, criticidad: "Muy Alta", equipo: "Jon", age: 35 },
-  { id: 2, criticidad: "Muy Alta", equipo: "Cersei", age: 42 },
-  { id: 3, criticidad: "Alta", equipo: "Jaime", age: 45 },
-  { id: 4, criticidad: "Media", equipo: "Arya", age: 16 },
-  { id: 5, criticidad: "Baja", equipo: "Daenerys", age: null },
-  { id: 6, criticidad: "Muy Alta", equipo: null, age: 150 },
-  { id: 7, criticidad: "Media", equipo: "Ferrara", age: 44 },
-  { id: 8, criticidad: "Alta", equipo: "Rossini", age: 36 },
-  { id: 9, criticidad: "Baja", equipo: "Harvey", age: 65 }
+  { id: 1, criticidad: "Muy Alta", equipo: "Jon", status: "Activo"  },
+  { id: 2, criticidad: "Muy Alta", equipo: "Cersei", status: "Parado"  },
+  { id: 3, criticidad: "Alta", equipo: "Jaime", status: "Parado"  },
+  { id: 4, criticidad: "Media", equipo: "Arya", status: "Activo"  },
+  { id: 5, criticidad: "Baja", equipo: "Daenerys", status: "Activo"  },
+  { id: 6, criticidad: "Muy Alta", equipo: null, status: "Parado"  },
+  { id: 7, criticidad: "Media", equipo: "Ferrara", status: "Activo"  },
+  { id: 8, criticidad: "Alta", equipo: "Rossini", status: "Parado"  },
+  { id: 9, criticidad: "Baja", equipo: "Harvey", status: "Activo"  }
 ];
 
 export default function DataGridDemo() {
