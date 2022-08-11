@@ -1,12 +1,11 @@
 // material-ui
-import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 
 // project import
 import MainCard from "../../../components/MainCard";
 import StatisticsCard from "../../../components/cards/statistics/StatisticsCard";
-import IncomeAreaChart from "../../dashboard/IncomeAreaChart";
 import { useEffect, useState } from "react";
-import DataGrid from "./DataGrid-Equipos";
+import DataGridEquipos from "./DataGridEquipos";
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -132,9 +131,7 @@ const Equipos = () => {
 
         {/*Tabla*/}
         <MainCard content={false} sx={{ mt: 1.5 }}>
-          <Box sx={{ pt: 1, pr: 2 }}>
-            <DataGrid />
-          </Box>
+            <DataGridEquipos/>
         </MainCard>
       </Grid>
     </Grid>

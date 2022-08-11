@@ -1,7 +1,10 @@
+
+//Imports
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { Chip } from "@mui/material";
+import { alpha, styled } from "@mui/material/styles";
 import {
   WarningOutlined,
   ExclamationCircleOutlined,
@@ -11,13 +14,30 @@ import {
   CheckOutlined
 } from "@ant-design/icons";
 
+//Styled MuiDataGrid-columnHeaderTitle
+const dataGridSX = {
+  p:1,
+  "& .css-1jbbcbn-MuiDataGrid-columnHeaderTitle": {
+    'font-weight': 'bold',
+    fontSize: 13
+  },
+  "& .MuiDataGrid-columnHeaders,.MuiDataGrid-columnHeader:focus-within, .MuiDataGrid-columnHeader:focus": {
+    outline: 'solid #1890ff 0px !important'
+  },
+  "& .MuiDataGrid-columnSeparator": {
+    color: 'rgb(240, 240, 240)'
+  }
+};
+
+
+//Columns Definitions
 const columns = [
   { field: "id", headerName: "ID", minWidth: 40, flex: 1 },
   {
     field: "equipo",
     headerName: "Equipo",
     minWidth: 80,
-    flex: 2,
+    flex: 1,
     editable: true
   },
   {
@@ -26,7 +46,7 @@ const columns = [
     type: "singleSelect",
     valueOptions: ["Muy Alta", "Alta", "Media", "Baja"],
     minWidth: 120,
-    flex: 1,
+    flex: 2,
     editable: true,
     renderCell: ({ value }) => {
       const chipParams = {
@@ -40,7 +60,7 @@ const columns = [
         },
         Media: {
           color: "primary",
-          icon:<PlusCircleOutlined />
+          icon: <PlusCircleOutlined />
         },
         Baja: {
           color: "success",
@@ -48,13 +68,13 @@ const columns = [
         }
       };
 
-    
+
       return (
         <Chip
           variant="outlined"
-          color={chipParams.[value].color}
+          color={chipParams[value]['color']}
           label={value}
-          icon={chipParams.[value].icon}
+          icon={chipParams[value]['icon']}
         />
       );
     }
@@ -63,9 +83,9 @@ const columns = [
     field: "status",
     headerName: "Estado",
     type: "singleSelect",
-    valueOptions: ["Activo","Parado"],
+    valueOptions: ["Activo", "Parado"],
     minWidth: 100,
-    flex: 1,
+    flex: 2,
     editable: true,
     renderCell: ({ value }) => {
       return (
@@ -73,7 +93,7 @@ const columns = [
           variant="outlined"
           color="default"
           label={value}
-          icon={value==='Activo'?<CheckOutlined />:<CloseOutlined />}
+          icon={value === 'Activo' ? <CheckOutlined /> : <CloseOutlined />}
           sx={{
             border: '0px',
             display: 'flex',
@@ -91,25 +111,29 @@ const columns = [
     headerName: "Full name",
     description: "This column has a value getter and is not sortable.",
     sortable: false,
-    width: 160,
+    minWidth: 160,
+    flex: 2,
     valueGetter: (params) =>
       `${params.row.firstName || ""} ${params.row.lastName || ""}`
   }
 ];
 
+
+//Rows Definitions
 const rows = [
-  { id: 1, criticidad: "Muy Alta", equipo: "Jon", status: "Activo"  },
-  { id: 2, criticidad: "Muy Alta", equipo: "Cersei", status: "Parado"  },
-  { id: 3, criticidad: "Alta", equipo: "Jaime", status: "Parado"  },
-  { id: 4, criticidad: "Media", equipo: "Arya", status: "Activo"  },
-  { id: 5, criticidad: "Baja", equipo: "Daenerys", status: "Activo"  },
-  { id: 6, criticidad: "Muy Alta", equipo: null, status: "Parado"  },
-  { id: 7, criticidad: "Media", equipo: "Ferrara", status: "Activo"  },
-  { id: 8, criticidad: "Alta", equipo: "Rossini", status: "Parado"  },
-  { id: 9, criticidad: "Baja", equipo: "Harvey", status: "Activo"  }
+  { id: 1, criticidad: "Muy Alta", equipo: "Jon", status: "Activo" },
+  { id: 2, criticidad: "Muy Alta", equipo: "Cersei", status: "Parado" },
+  { id: 3, criticidad: "Alta", equipo: "Jaime", status: "Parado" },
+  { id: 4, criticidad: "Media", equipo: "Arya", status: "Activo" },
+  { id: 5, criticidad: "Baja", equipo: "Daenerys", status: "Activo" },
+  { id: 6, criticidad: "Muy Alta", equipo: null, status: "Parado" },
+  { id: 7, criticidad: "Media", equipo: "Ferrara", status: "Activo" },
+  { id: 8, criticidad: "Alta", equipo: "Rossini", status: "Parado" },
+  { id: 9, criticidad: "Baja", equipo: "Harvey", status: "Activo" }
 ];
 
-export default function DataGridDemo() {
+//Data Grid Declaration
+export default function DataGridEquipos() {
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
@@ -117,8 +141,10 @@ export default function DataGridDemo() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
+        sx={dataGridSX}
         disableSelectionOnClick
       />
     </Box>
   );
 }
+
