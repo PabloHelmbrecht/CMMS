@@ -19,8 +19,8 @@ function DataGridCustomized({ rows, columns, pageSize, rowsPerPageOptions, showT
             fontSize: theme.typography.h6
         },
         "& .css-1jbbcbn-MuiDataGrid-columnHeaderTitle": {
-            fontWeight: theme.typography.fontWeightRegular + ' !important',
-            fontSize: theme.typography.h6
+            fontWeight: "regular" + ' !important',
+            fontSize: "14px"
         },
         "& .MuiDataGrid-row": {
             fontSize: "13px"
