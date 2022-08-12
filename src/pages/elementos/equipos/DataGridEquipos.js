@@ -1,10 +1,15 @@
 
 //Imports
 import * as React from "react";
-import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
+import {isMobile} from 'react-device-detect';
+
+//Project Imports
+import DataGrid from "../../../components/personalized-components/DataGrid.js"
+
+//MUI Imports
 import { Chip } from "@mui/material";
-import { alpha, styled } from "@mui/material/styles";
+
+//Icons Import
 import {
   WarningOutlined,
   ExclamationCircleOutlined,
@@ -14,27 +19,12 @@ import {
   CheckOutlined
 } from "@ant-design/icons";
 
-//Styled MuiDataGrid-columnHeaderTitle
-const dataGridSX = {
-  p:1,
-  "& .css-1jbbcbn-MuiDataGrid-columnHeaderTitle": {
-    'font-weight': 'bold',
-    fontSize: 13
-  },
-  "& .MuiDataGrid-columnHeaders,.MuiDataGrid-columnHeader:focus-within, .MuiDataGrid-columnHeader:focus": {
-    outline: 'solid #1890ff 0px !important'
-  },
-  "& .MuiDataGrid-columnSeparator": {
-    color: 'rgb(240, 240, 240)'
-  }
-};
-
-
 //Columns Definitions
 const columns = [
-  { field: "id", headerName: "ID", minWidth: 40, flex: 1 },
+  { field: "id",description: "Identificador único del equipo", headerName: "ID", minWidth: 40, flex: 1 },
   {
     field: "equipo",
+    description: "Nombre del equipo",
     headerName: "Equipo",
     minWidth: 80,
     flex: 1,
@@ -44,6 +34,7 @@ const columns = [
     field: "criticidad",
     headerName: "Criticidad",
     type: "singleSelect",
+    description: "Criticidad del equipo de acuerdo a diferentes variables",
     valueOptions: ["Muy Alta", "Alta", "Media", "Baja"],
     minWidth: 120,
     flex: 2,
@@ -82,6 +73,7 @@ const columns = [
   {
     field: "status",
     headerName: "Estado",
+    description: "Estado del equipo. Me indica si el equipo está actualmento en funcionamiento o parado",
     type: "singleSelect",
     valueOptions: ["Activo", "Parado"],
     minWidth: 100,
@@ -97,54 +89,46 @@ const columns = [
           sx={{
             border: '0px',
             display: 'flex',
-            'flex-direction': 'row',
-            'align-content': 'center',
-            'justify-content': 'center',
-            'align-items': 'center'
+            flexDirection: 'row',
+            alignContent: 'center',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         />
       );
     }
   },
   {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    minWidth: 160,
-    flex: 2,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`
+    field: "fabricante",
+    headerName: "Fabricante",
+    description: "Nombre del fabricante de este equipo",
+    minWidth: 100,
+    flex: 2
   }
 ];
 
 
 //Rows Definitions
 const rows = [
-  { id: 1, criticidad: "Muy Alta", equipo: "Jon", status: "Activo" },
-  { id: 2, criticidad: "Muy Alta", equipo: "Cersei", status: "Parado" },
-  { id: 3, criticidad: "Alta", equipo: "Jaime", status: "Parado" },
-  { id: 4, criticidad: "Media", equipo: "Arya", status: "Activo" },
-  { id: 5, criticidad: "Baja", equipo: "Daenerys", status: "Activo" },
-  { id: 6, criticidad: "Muy Alta", equipo: null, status: "Parado" },
-  { id: 7, criticidad: "Media", equipo: "Ferrara", status: "Activo" },
-  { id: 8, criticidad: "Alta", equipo: "Rossini", status: "Parado" },
-  { id: 9, criticidad: "Baja", equipo: "Harvey", status: "Activo" }
+  { id: 1, criticidad: "Muy Alta", equipo: "Jon", fabricante:"Forel",status: "Activo" },
+  { id: 2, criticidad: "Muy Alta", equipo: "Cersei", fabricante:"Forel",status: "Parado" },
+  { id: 3, criticidad: "Alta", equipo: "Jaime", fabricante:"Forel",status: "Parado" },
+  { id: 4, criticidad: "Media", equipo: "Arya", fabricante:"Forel",status: "Activo" },
+  { id: 5, criticidad: "Baja", equipo: "Daenerys", fabricante:"Forel",status: "Activo" },
+  { id: 6, criticidad: "Muy Alta", equipo: null, fabricante:"Forel",status: "Parado" },
+  { id: 7, criticidad: "Media", equipo: "Ferrara", fabricante:"Forel",status: "Activo" },
+  { id: 8, criticidad: "Alta", equipo: "Rossini", fabricante:"Forel",status: "Parado" },
+  { id: 9, criticidad: "Baja", equipo: "Harvey", fabricante:"Forel",status: "Activo" }
 ];
 
-//Data Grid Declaration
+//Data Grid Declaration 
 export default function DataGridEquipos() {
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        sx={dataGridSX}
-        disableSelectionOnClick
-      />
-    </Box>
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      showToolbar={!isMobile}
+      showQuickFilter={!isMobile}
+    />
   );
 }
-

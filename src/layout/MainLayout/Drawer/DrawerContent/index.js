@@ -13,18 +13,18 @@ const DrawerContent = () => (
         flexDirection: "column"
       },
 
-      "overflow-y": "overlay",
+      "overflowY": "overlay",
       "::-webkit-scrollbar-track": {
-        "border-radius": "0px",
-        "background-color": "rgb(128, 128, 128, 0)",
+        "borderRadius": "0px",
+        "backgroundColor": "rgb(128, 128, 128, 0)",
       },
       "::-webkit-scrollbar": {
         "width": "7px",
-        "background-color": "rgb(128, 128, 128, 0)",
+        "backgroundColor": "rgb(128, 128, 128, 0)",
       },
       "::-webkit-scrollbar-thumb": {
-        "border-radius": "10px",
-        "background-color": "rgb(128, 128, 128, 0.5)",
+        "borderRadius": "10px",
+        "backgroundColor": "rgb(128, 128, 128, 0.5)",
 
       }
     }}
