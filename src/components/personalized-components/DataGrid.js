@@ -20,7 +20,7 @@ function DataGridCustomized({ rows, columns, pageSize, rowsPerPageOptions, showT
         },
         "& .css-1jbbcbn-MuiDataGrid-columnHeaderTitle": {
             fontWeight: "regular" + ' !important',
-            fontSize: "14px"
+            fontSize: "14px !important"
         },
         "& .MuiDataGrid-row": {
             fontSize: "13px"
