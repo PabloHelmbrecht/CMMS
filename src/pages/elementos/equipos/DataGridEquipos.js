@@ -1,10 +1,12 @@
-
 //Imports
 import * as React from "react";
-import {isMobile} from 'react-device-detect';
+import { isMobile } from "react-device-detect";
+import moment from "moment";
+import "moment/locale/es";
 
 //Project Imports
-import DataGrid from "../../../components/personalized-components/DataGrid.js"
+import DataGrid from "../../../components/personalized-components/DataGrid.js";
+import renderCellExpand from "../../../components/personalized-components/CellExpand.js";
 
 //MUI Imports
 import { Chip } from "@mui/material";
@@ -19,15 +21,25 @@ import {
   CheckOutlined
 } from "@ant-design/icons";
 
+//Cambio lenguaje de moment.js
+moment.locale("es");
+
 //Columns Definitions
 const columns = [
-  { field: "id",description: "Identificador único del equipo", headerName: "ID", minWidth: 40, flex: 1 },
+  {
+    field: "id",
+    description: "Identificador único del equipo",
+    headerName: "ID",
+    minWidth: 40,
+    flex: 1
+  },
   {
     field: "equipo",
     description: "Nombre del equipo",
     headerName: "Equipo",
     minWidth: 80,
     flex: 1,
+    renderCell: renderCellExpand,
     editable: true
   },
   {
@@ -59,13 +71,12 @@ const columns = [
         }
       };
 
-
       return (
         <Chip
           variant="outlined"
-          color={chipParams[value]['color']}
+          color={chipParams[value]["color"]}
           label={value}
-          icon={chipParams[value]['icon']}
+          icon={chipParams[value]["icon"]}
         />
       );
     }
@@ -73,7 +84,8 @@ const columns = [
   {
     field: "status",
     headerName: "Estado",
-    description: "Estado del equipo. Me indica si el equipo está actualmento en funcionamiento o parado",
+    description:
+      "Estado del equipo. Me indica si el equipo está actualmento en funcionamiento o parado",
     type: "singleSelect",
     valueOptions: ["Activo", "Parado"],
     minWidth: 100,
@@ -85,14 +97,14 @@ const columns = [
           variant="outlined"
           color="default"
           label={value}
-          icon={value === 'Activo' ? <CheckOutlined /> : <CloseOutlined />}
+          icon={value === "Activo" ? <CheckOutlined /> : <CloseOutlined />}
           sx={{
-            border: '0px',
-            display: 'flex',
-            flexDirection: 'row',
-            alignContent: 'center',
-            justifyContent: 'center',
-            alignItems: 'center'
+            border: "0px",
+            display: "flex",
+            flexDirection: "row",
+            alignContent: "center",
+            justifyContent: "center",
+            alignItems: "center"
           }}
         />
       );
@@ -103,25 +115,130 @@ const columns = [
     headerName: "Fabricante",
     description: "Nombre del fabricante de este equipo",
     minWidth: 100,
-    flex: 2
+    flex: 2,
+    renderCell: renderCellExpand
+  },
+  {
+    field: "fechaCreacion",
+    headerName: "Fecha de Creación",
+    minWidth: 150,
+    flex: 2,
+    valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY")
+  },
+  {
+    field: "ultimaModificacion",
+    headerName: "Última Modificación",
+    minWidth: 150,
+    flex: 2,
+
+    valueFormatter: (params) => moment(params?.value).fromNow()
+  },
+  {
+    field: "ultimaActividad",
+    headerName: "Última Actividad Generada",
+    minWidth: 150,
+    flex: 2,
+
+    valueFormatter: (params) => moment(params?.value).fromNow()
   }
 ];
 
-
 //Rows Definitions
 const rows = [
-  { id: 1, criticidad: "Muy Alta", equipo: "Jon", fabricante:"Forel",status: "Activo" },
-  { id: 2, criticidad: "Muy Alta", equipo: "Cersei", fabricante:"Forel",status: "Parado" },
-  { id: 3, criticidad: "Alta", equipo: "Jaime", fabricante:"Forel",status: "Parado" },
-  { id: 4, criticidad: "Media", equipo: "Arya", fabricante:"Forel",status: "Activo" },
-  { id: 5, criticidad: "Baja", equipo: "Daenerys", fabricante:"Forel",status: "Activo" },
-  { id: 6, criticidad: "Muy Alta", equipo: null, fabricante:"Forel",status: "Parado" },
-  { id: 7, criticidad: "Media", equipo: "Ferrara", fabricante:"Forel",status: "Activo" },
-  { id: 8, criticidad: "Alta", equipo: "Rossini", fabricante:"Forel",status: "Parado" },
-  { id: 9, criticidad: "Baja", equipo: "Harvey", fabricante:"Forel",status: "Activo" }
+  {
+    id: 1,
+    criticidad: "Muy Alta",
+    equipo: "Jon",
+    fabricante: "Forel",
+    status: "Activo",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 2,
+    criticidad: "Muy Alta",
+    equipo: "Cersei",
+    fabricante: "Forel",
+    status: "Parado",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 3,
+    criticidad: "Alta",
+    equipo: "Jaime",
+    fabricante: "Forel",
+    status: "Parado",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 4,
+    criticidad: "Media",
+    equipo: "Arya",
+    fabricante: "Forel",
+    status: "Activo",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 5,
+    criticidad: "Baja",
+    equipo: "Daenerys",
+    fabricante:
+      "Forelcrfev rewvetrvervtyv bvervtyvtrvtrbvr btyryunbtyuntyiuniutn iuyntuinyubinntu",
+    status: "Activo",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 6,
+    criticidad: "Muy Alta",
+    equipo: null,
+    fabricante: "Forel",
+    status: "Parado",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 7,
+    criticidad: "Media",
+    equipo: "Ferrara",
+    fabricante: "Forel",
+    status: "Activo",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 8,
+    criticidad: "Alta",
+    equipo: "Rossini",
+    fabricante: "Forel",
+    status: "Parado",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  },
+  {
+    id: 9,
+    criticidad: "Baja",
+    equipo: "Harvey",
+    fabricante: "Forel",
+    status: "Activo",
+    fechaCreacion: new Date(),
+    ultimaModificacion: new Date(),
+    ultimaActividad: new Date()
+  }
 ];
 
-//Data Grid Declaration 
+//Data Grid Declaration
 export default function DataGridEquipos() {
   return (
     <DataGrid
