@@ -259,13 +259,18 @@ const rows = [
 ];
 
 //Data Grid Declaration
-export default function DataGridEquipos() {
+export default function DataGridEquipos({onSelection}) {
   return (
     <DataGrid
       rows={rows}
       columns={columns}
       showToolbar={!isMobile}
       showQuickFilter={!isMobile}
+      other={{
+        "onSelectionModelChange": (rowId) => {
+          onSelection(rowId)
+        }
+      }}
     />
   );
 }

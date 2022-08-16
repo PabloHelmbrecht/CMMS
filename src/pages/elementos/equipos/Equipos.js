@@ -11,7 +11,6 @@ import DataGridEquipos from "./DataGridEquipos";
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const Equipos = () => {
-  const [slot, setSlot] = useState("week");
 
   const [statistics, setStatistics] = useState({
     Card1: {
@@ -39,6 +38,9 @@ const Equipos = () => {
       extra: "20,000"
     }
   });
+
+  //Handler para selección de fila en data grid
+  const [rowSelected,setRowSelected] = useState()
 
   //Actualizo los indicadores cuando se actualiza la base de datos
   useEffect(() => {}, []);
@@ -109,30 +111,38 @@ const Equipos = () => {
 
           {/* Botones de Tabla */}
           <Grid item>
-            <Stack direction="row" alignItems="center" spacing={0}>
+            <Stack direction="row" alignItems="center" spacing={1}>
               <Button
                 size="small"
-                onClick={() => setSlot("month")}
-                color={slot === "month" ? "primary" : "secondary"}
-                variant={slot === "month" ? "outlined" : "text"}
+                onClick={() => {}}
+                color={"primary"}
+                variant={"contained"}
               >
-                Month
+                Crear Equipo
               </Button>
               <Button
                 size="small"
-                onClick={() => setSlot("week")}
-                color={slot === "week" ? "primary" : "secondary"}
-                variant={slot === "week" ? "outlined" : "text"}
+                onClick={() => {}}
+                color={"primary"}
+                variant={"outlined"}
               >
-                Week
+                Crear Elemento
               </Button>
+              {rowSelected&&<Button
+                size="small"
+                onClick={() => {}}
+                color={"primary"}
+                variant={"outlined"}
+              >
+                rowSelected
+              </Button>}
             </Stack>
           </Grid>
         </Grid>
 
         {/*Tabla*/}
         <MainCard content={false} sx={{ mt: 1.5 }}>
-          <DataGridEquipos />
+          <DataGridEquipos onSelection={setRowSelected} />
         </MainCard>
       </Grid>
     </Grid>

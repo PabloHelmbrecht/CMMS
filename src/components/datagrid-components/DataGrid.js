@@ -17,6 +17,7 @@ function DataGridCustomized({
   sx,
   other,
   height,
+  disableSelectionOnClick,
   extraComponentsProps
 }) {
   const theme = useTheme();
@@ -74,7 +75,7 @@ function DataGridCustomized({
           ...extraComponentsProps
         }}
         sx={dataGridSX}
-        disableSelectionOnClick
+        disableSelectionOnClick={disableSelectionOnClick}
         {...other}
       />
     </Box>
@@ -89,6 +90,7 @@ DataGridCustomized.defaultProps = {
   rowsPerPageOptions: [50],
   showToolbar: true,
   showQuickFilter: true,
+  disableSelectionOnClick: false,
   extraComponentsProps: ""
 };
 
