@@ -124,7 +124,7 @@ const columns = [
     description: "Fecha de creación del equipo en el sistema",
     minWidth: 150,
     flex: 2,
-    valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY")
+    valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY hh:mm")
   },
   {
     field: "ultimaModificacion",
