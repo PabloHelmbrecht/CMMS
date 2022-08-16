@@ -121,6 +121,7 @@ const columns = [
   {
     field: "fechaCreacion",
     headerName: "Fecha de Creación",
+    description: "Fecha de creación del equipo en el sistema",
     minWidth: 150,
     flex: 2,
     valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY")
@@ -128,6 +129,7 @@ const columns = [
   {
     field: "ultimaModificacion",
     headerName: "Última Modificación",
+    description: "Fecha de modificación del equipo en el sistema",
     minWidth: 150,
     flex: 2,
 
@@ -135,7 +137,8 @@ const columns = [
   },
   {
     field: "ultimaActividad",
-    headerName: "Última Actividad Generada",
+    headerName: "Última Actividad",
+    description: "Fecha de generación de la última actividad",
     minWidth: 150,
     flex: 2,
 
