@@ -4,6 +4,7 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 // project import
 import MainCard from "../../../components/MainCard";
 import StatisticsCard from "../../../components/cards/statistics/StatisticsCard";
+import React from "react";
 import { useEffect, useState } from "react";
 import DataGridEquipos from "./DataGridEquipos";
 
@@ -131,7 +132,7 @@ const Equipos = () => {
 
         {/*Tabla*/}
         <MainCard content={false} sx={{ mt: 1.5 }}>
-            <DataGridEquipos/>
+          <DataGridEquipos />
         </MainCard>
       </Grid>
     </Grid>

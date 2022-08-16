@@ -1,12 +1,13 @@
 //Imports
-import * as React from "react";
+import React from "react";
+//import { useState } from "react";
 import { isMobile } from "react-device-detect";
 import moment from "moment";
 import "moment/locale/es";
 
 //Project Imports
-import DataGrid from "../../../components/personalized-components/DataGrid.js";
-import renderCellExpand from "../../../components/personalized-components/CellExpand.js";
+import DataGrid from "../../../components/datagrid-components/DataGrid.js";
+import renderCellExpand from "../../../components/datagrid-components/CellExpand.js";
 
 //MUI Imports
 import { Chip } from "@mui/material";
@@ -136,6 +137,14 @@ const columns = [
     valueFormatter: (params) => moment(params?.value).fromNow()
   },
   {
+    field: "actividades",
+    headerName: "Actividades",
+    type: "number",
+    description: "Cantidad de actividades",
+    minWidth: 100,
+    flex: 1
+  },
+  {
     field: "ultimaActividad",
     headerName: "Última Actividad",
     description: "Fecha de generación de la última actividad",
@@ -156,6 +165,7 @@ const rows = [
     status: "Activo",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
@@ -166,6 +176,7 @@ const rows = [
     status: "Parado",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
@@ -176,6 +187,7 @@ const rows = [
     status: "Parado",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
@@ -186,6 +198,7 @@ const rows = [
     status: "Activo",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
@@ -197,6 +210,7 @@ const rows = [
     status: "Activo",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
@@ -207,6 +221,7 @@ const rows = [
     status: "Parado",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
@@ -217,6 +232,7 @@ const rows = [
     status: "Activo",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
@@ -227,6 +243,7 @@ const rows = [
     status: "Parado",
     fechaCreacion: new Date(),
     ultimaModificacion: new Date(),
+    actividades: 4,
     ultimaActividad: new Date()
   },
   {
