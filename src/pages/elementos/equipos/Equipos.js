@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography,Tooltip } from "@mui/material";
 
 // project import
 import MainCard from "../../../components/MainCard";
@@ -7,6 +7,7 @@ import StatisticsCard from "../../../components/cards/statistics/StatisticsCard"
 import React from "react";
 import { useEffect, useState } from "react";
 import DataGridEquipos from "./DataGridEquipos";
+import { EditFilled, EyeFilled } from '@ant-design/icons';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -40,10 +41,10 @@ const Equipos = () => {
   });
 
   //Handler para selección de fila en data grid
-  const [rowSelected,setRowSelected] = useState()
+  const [rowSelected, setRowSelected] = useState()
 
   //Actualizo los indicadores cuando se actualiza la base de datos
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -112,30 +113,42 @@ const Equipos = () => {
           {/* Botones de Tabla */}
           <Grid item>
             <Stack direction="row" alignItems="center" spacing={1}>
+              {rowSelected && <Tooltip title="Ver equipo seleccionado"><Button
+                size="small"
+                onClick={() => { console.log(rowSelected) }}
+                color={"primary"}
+                variant={"contained"}
+                startIcon={<EyeFilled />}
+
+              >
+                Ver
+              </Button></Tooltip>}
+              {rowSelected && <Tooltip title="Editar equipo seleccionado"><Button
+                size="small"
+                onClick={() => { console.log(rowSelected) }}
+                color={"primary"}
+                variant={"outlined"}
+                startIcon={<EditFilled />}
+
+              >
+                Editar
+              </Button></Tooltip>}
               <Button
                 size="small"
-                onClick={() => {}}
-                color={"primary"}
+                onClick={() => { }}
+                color={rowSelected ? "secondary" : "primary"}
                 variant={"contained"}
               >
                 Crear Equipo
               </Button>
               <Button
                 size="small"
-                onClick={() => {}}
-                color={"primary"}
+                onClick={() => { }}
+                color={rowSelected ? "secondary" : "primary"}
                 variant={"outlined"}
               >
                 Crear Elemento
               </Button>
-              {rowSelected&&<Button
-                size="small"
-                onClick={() => {}}
-                color={"primary"}
-                variant={"outlined"}
-              >
-                rowSelected
-              </Button>}
             </Stack>
           </Grid>
         </Grid>

@@ -1,6 +1,5 @@
 //Imports
-import React from "react";
-//import { useState } from "react";
+import { useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import moment from "moment";
 import "moment/locale/es";
@@ -8,6 +7,9 @@ import "moment/locale/es";
 //Project Imports
 import DataGrid from "../../../components/datagrid-components/DataGrid.js";
 import renderCellExpand from "../../../components/datagrid-components/CellExpand.js";
+
+//API Imports
+import equiposCall from "../../../api/elementos/equipos.js";
 
 //MUI Imports
 import { Chip } from "@mui/material";
@@ -155,111 +157,17 @@ const columns = [
   }
 ];
 
-//Rows Definitions
-const rows = [
-  {
-    id: 1,
-    criticidad: "Muy Alta",
-    equipo: "Jon",
-    fabricante: "Forel",
-    status: "Activo",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 2,
-    criticidad: "Muy Alta",
-    equipo: "Cersei",
-    fabricante: "Forel",
-    status: "Parado",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 3,
-    criticidad: "Alta",
-    equipo: "Jaime",
-    fabricante: "Forel",
-    status: "Parado",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 4,
-    criticidad: "Media",
-    equipo: "Arya",
-    fabricante: "Forel",
-    status: "Activo",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 5,
-    criticidad: "Baja",
-    equipo: "Daenerys",
-    fabricante:
-      "Forelcrfev rewvetrvervtyv bvervtyvtrvtrbvr btyryunbtyuntyiuniutn iuyntuinyubinntu",
-    status: "Activo",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 6,
-    criticidad: "Muy Alta",
-    equipo: null,
-    fabricante: "Forel",
-    status: "Parado",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 7,
-    criticidad: "Media",
-    equipo: "Ferrara",
-    fabricante: "Forel",
-    status: "Activo",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 8,
-    criticidad: "Alta",
-    equipo: "Rossini",
-    fabricante: "Forel",
-    status: "Parado",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    actividades: 4,
-    ultimaActividad: new Date()
-  },
-  {
-    id: 9,
-    criticidad: "Baja",
-    equipo: "Harvey",
-    fabricante: "Forel",
-    status: "Activo",
-    fechaCreacion: new Date(),
-    ultimaModificacion: new Date(),
-    ultimaActividad: new Date()
-  }
-];
+
 
 //Data Grid Declaration
-export default function DataGridEquipos({onSelection}) {
+export default function DataGridEquipos({ onSelection }) {
+
+  const [rows, setRows] = useState()
+
+  useEffect(() => {
+    setRows(equiposCall())
+  },[])
+
   return (
     <DataGrid
       rows={rows}
@@ -268,7 +176,7 @@ export default function DataGridEquipos({onSelection}) {
       showQuickFilter={!isMobile}
       other={{
         "onSelectionModelChange": (rowId) => {
-          onSelection(rowId)
+          onSelection(rowId.length ? rowId : null)
         }
       }}
     />
