@@ -40,20 +40,16 @@ const VistaEquipo = ({ id, isOnEditMode }) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>
+                <Button onClick={handleClose} component={Link} to={`/elementos/equipos`}>
                     Cerrar
                 </Button>
                 {editMode ?
-                    <Button onClick={handleOpenViewMode}>
-                        <Link to={`/elementos/equipos/${id} `} >
+                    <Button onClick={handleOpenViewMode} component={Link} to={`/elementos/equipos/${id} `}>
                             Cambiar a modo vista
-                        </Link>
                     </Button>
                     :
-                    <Button onClick={handleOpenEditMode}>
-                        <Link to={`/elementos/equipos/${id}/edit `} >
+                    <Button onClick={handleOpenEditMode} component={Link} to={`/elementos/equipos/${id}/edit `} >
                             Cambiar a modo edición
-                        </Link>
                     </Button>
                 }
             </DialogActions>
