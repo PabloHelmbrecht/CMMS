@@ -32,8 +32,15 @@ const VistaEquipo = ({ id, isOnEditMode }) => {
     //Handler para cerrar el modo edición y abrir el modo vista
     const handleOpenViewMode = () => { setEditMode(false) }
 
+
+    //! https://stackoverflow.com/questions/70415223/how-to-move-the-image-partially-outside-of-mui-dialog para agregar las flechas afuera
+
     return (
-        <Dialog open={open} >
+        <Dialog open={open}
+            onClose={handleClose}
+            fullWidth={true}
+            maxWidth={'xl'}
+        >
             <DialogContent>
                 <DialogContentText>
                     El id es {id}, el modo es {editMode ? "edit" : "view"}
@@ -45,11 +52,11 @@ const VistaEquipo = ({ id, isOnEditMode }) => {
                 </Button>
                 {editMode ?
                     <Button onClick={handleOpenViewMode} component={Link} to={`/elementos/equipos/${id} `}>
-                            Cambiar a modo vista
+                        Cambiar a modo vista
                     </Button>
                     :
                     <Button onClick={handleOpenEditMode} component={Link} to={`/elementos/equipos/${id}/edit `} >
-                            Cambiar a modo edición
+                        Cambiar a modo edición
                     </Button>
                 }
             </DialogActions>
