@@ -20,8 +20,8 @@ import { EditFilled, EyeFilled } from '@ant-design/icons';
 // project imports
 import MainCard from "../../../components/MainCard";
 import StatisticsCard from "../../../components/cards/statistics/StatisticsCard";
-import DataGridEquipos from "./DataGridEquipos";
-import VistaEquipo from "./VistaEquipo";
+import DataGridEquipos from "./DataGridEquipos.jsx";
+import VistaEquipo from "./VistaEquipo.jsx";
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
