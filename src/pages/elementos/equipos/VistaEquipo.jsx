@@ -37,7 +37,7 @@ const VistaEquipo = ({ id, isOnEditMode }) => {
 
     return (
         <Dialog open={open}
-            onClose={handleClose}
+            
             fullWidth={true}
             maxWidth={'xl'}
         >
