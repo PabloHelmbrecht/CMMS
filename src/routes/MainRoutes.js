@@ -25,7 +25,7 @@ const Shadow = Loadable(
 const AntIcons = Loadable(
   lazy(() => import("../pages/components-overview/AntIcons"))
 );
-const Equipos= Loadable(
+const Equipos = Loadable(
   lazy(() => import("../pages/elementos/equipos/Equipos"))
 );
 
@@ -70,7 +70,20 @@ const MainRoutes = {
     },
     {
       path: "elementos/equipos",
-      element: <Equipos/>
+      children: [
+        {
+          path: "",
+          element: <Equipos/>,
+        },
+        {
+          path: ":id",
+          element: <Equipos/>,
+        },
+        {
+          path: ":id/edit",
+          element: <Equipos isOnEditMode={true} />,
+        }
+      ]
     }
   ]
 };
