@@ -80,7 +80,7 @@ const MainRoutes = {
           element: <Equipos />,
           children: [
             {
-              path: ":setEditMode",
+              path: ":mode",
               element: <Equipos />,
             }
           ]
