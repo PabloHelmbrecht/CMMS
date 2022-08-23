@@ -73,15 +73,17 @@ const MainRoutes = {
       children: [
         {
           path: "",
-          element: <Equipos/>,
+          element: <Equipos />,
         },
         {
           path: ":id",
-          element: <Equipos/>,
-        },
-        {
-          path: ":id/edit",
-          element: <Equipos isOnEditMode={true} />,
+          element: <Equipos />,
+          children: [
+            {
+              path: ":setEditMode",
+              element: <Equipos />,
+            }
+          ]
         }
       ]
     }

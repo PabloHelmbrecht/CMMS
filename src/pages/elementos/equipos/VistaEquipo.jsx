@@ -1,78 +1,82 @@
 //Imports
-import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import React, { useEffect } from "react";
 import {
     Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText
+    Dialog
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+//Project imports
+import MainCard from "../../../components/MainCard";
+import { setID, activeEditMode, openView } from "../../../store/reducers/equipmentView"
 
 
-const VistaEquipo = ({ id, isOnEditMode }) => {
 
-    // Estado de apertura o cierre de la vista
-    const [open, setOpen] = useState(!(id == null))
+const VistaEquipo = () => {
 
-    //Estado de apertura o cierre del modo edición
-    const [editMode, setEditMode] = useState(isOnEditMode)
-    console.log(`modo: ${isOnEditMode} editMode: ${editMode}`)
 
-    //Handler de aperturade la vista
-    const handleClickOpen = () => { setOpen(true) }
+    //Obtener estados de redux
+    const { elementID, editMode, viewOpen } = useSelector((state) => state.equipmentView);
+    const dispatch = useDispatch()
 
-    //Handler de cierre de la vista
-    const handleClose = () => { setOpen(false) }
+    //Obtenemos el id de la ruta
+    const { id, setEditMode } = useParams()
 
-    //Handler para abrir el modo edición
-    const handleOpenEditMode = () => { setEditMode(true) }
+    //Activador de vista
+    const handleViewToggle = () => {
+        dispatch(openView({ viewOpen: !viewOpen }));
+    };
 
-    //Handler para cerrar el modo edición y abrir el modo vista
-    const handleOpenViewMode = () => { setEditMode(false) }
+    //Activador de modo edición
+    const handleEditModeToggle = () => {
+        dispatch(activeEditMode({ editMode: !editMode }));
+    };
+
+    //Guardamos el id en el store
+    useEffect(() => {
+
+        //Guardamos el id pasado por la ruta en el redux store
+        dispatch(setID({ elementID: id }))
+
+        //Si existe un id abrir la vista
+        id && dispatch(openView({ viewOpen: true }))
+
+        //Si la ruta contiene edit activar el modo edición
+        dispatch(activeEditMode({ editMode: setEditMode==="edit" }))
+    }, [id, setEditMode,dispatch])
+
+
 
 
     //! https://stackoverflow.com/questions/70415223/how-to-move-the-image-partially-outside-of-mui-dialog para agregar las flechas afuera
 
     return (
-        <Dialog open={open}
-            
+        <Dialog open={viewOpen}
             fullWidth={true}
             maxWidth={'xl'}
+            PaperProps={{
+                style: { backgroundColor: 'transparent', }
+            }}
         >
-            <DialogContent>
-                <DialogContentText>
-                    El id es {id}, el modo es {editMode ? "edit" : "view"}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} component={Link} to={`/elementos/equipos`}>
+            <MainCard title="Primary Color"  >
+                elementID: {elementID} openView: {viewOpen ? "true" : "false"} editMode: {editMode ? "true" : "false"}
+                <Button onClick={handleViewToggle} component={Link} to={`/elementos/equipos`}>
                     Cerrar
                 </Button>
                 {editMode ?
-                    <Button onClick={handleOpenViewMode} component={Link} to={`/elementos/equipos/${id} `}>
+                    <Button onClick={handleEditModeToggle} component={Link} to={`/elementos/equipos/${elementID} `}>
                         Cambiar a modo vista
                     </Button>
                     :
-                    <Button onClick={handleOpenEditMode} component={Link} to={`/elementos/equipos/${id}/edit `} >
+                    <Button onClick={handleEditModeToggle} component={Link} to={`/elementos/equipos/${elementID}/edit `} >
                         Cambiar a modo edición
                     </Button>
                 }
-            </DialogActions>
+            </MainCard>
         </Dialog>
     )
 }
-
-VistaEquipo.defaultProps = {
-    isOnEditMode: false,
-    id: null
-};
-
-VistaEquipo.propTypes = {
-    id: PropTypes.number,
-    isOnEditMode: PropTypes.bool
-};
 
 
 export default VistaEquipo

@@ -9,10 +9,10 @@ import {
 
 
 //third-party imports
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
-import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 //icons imports
 import { EditFilled, EyeFilled } from '@ant-design/icons';
@@ -25,11 +25,11 @@ import VistaEquipo from "./VistaEquipo.jsx";
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const Equipos = ({ isOnEditMode }) => {
+const Equipos = () => {
 
   //Obtenemos el id pasado por router
   const { id } = useParams()
- 
+
   //Guardar estadísticas en un state para su persistencia
   const [statistics, setStatistics] = useState({
     Card1: {
@@ -59,10 +59,7 @@ const Equipos = ({ isOnEditMode }) => {
   });
 
   //Handler para selección de fila en data grid
-  const [rowSelected, setRowSelected] = useState()
-
-  //Actualizo los indicadores cuando se actualiza la base de datos
-  useEffect(() => { }, []);
+  const [rowSelected, setRowSelected] = useState(id)
 
   return (
     <>
@@ -131,24 +128,25 @@ const Equipos = ({ isOnEditMode }) => {
 
             {/* Botones de Tabla */}
             <Grid item>
-              <Stack direction="row" alignItems="center" spacing={1}>
+              <Stack direction="row" alignItems="center" spacing={1} sx={{ pt: isMobile ? 1 : 0 }} >
                 {rowSelected && <Tooltip title="Ver equipo seleccionado"><Button
                   size="small"
-                  onClick={() => { console.log(rowSelected) }}
                   color={"primary"}
                   variant={"contained"}
                   startIcon={<EyeFilled />}
+                  component={Link}
+                  to={`/elementos/equipos/${rowSelected} `}
 
                 >
                   Ver
                 </Button></Tooltip>}
                 {rowSelected && <Tooltip title="Editar equipo seleccionado"><Button
                   size="small"
-                  onClick={() => { console.log(rowSelected) }}
                   color={"primary"}
                   variant={"outlined"}
                   startIcon={<EditFilled />}
-
+                  component={Link}
+                  to={`/elementos/equipos/${rowSelected}/edit `}
                 >
                   Editar
                 </Button></Tooltip>}
@@ -178,17 +176,9 @@ const Equipos = ({ isOnEditMode }) => {
           </MainCard>
         </Grid>
       </Grid>
-      <VistaEquipo isOnEditMode={isOnEditMode} id={id}/>
+      <VistaEquipo />
     </>
   );
-};
-
-Equipos.defaultProps = {
-  isOnEditMode: false
-};
-
-Equipos.propTypes = {
-  isOnEditMode: PropTypes.bool
 };
 
 export default Equipos;
