@@ -23,6 +23,9 @@ import {
     LinkOutlined
 } from '@ant-design/icons';
 
+//project imports
+import useWindowDimensions from "../../../utils/WindowDimensions";
+
 
 /*Función para copiar link no est{a listo todavía*/
 const Clipboard = async () => {
@@ -62,8 +65,16 @@ const VistaEquipo = () => {
         <Dialog open={open}
             fullWidth={true}
             maxWidth={'xl'}
-            sx={{ height: '100%' }}
+            PaperProps={{
+                style: {
+                    height: useWindowDimensions().height*0.9+'px'
+                },
+              }}
         >
+
+            {console.log(useWindowDimensions())}
+
+            
 
             {/*Header de la vista*/}
             <Grid
@@ -73,7 +84,7 @@ const VistaEquipo = () => {
                 sx={{ p: 2 }}
             >
 
-                <Grid item sx={6} >
+                <Grid item xs={6} >
                     <Stack
                         direction="row"
                         justifyContent="flex-end"
@@ -84,7 +95,7 @@ const VistaEquipo = () => {
                     </Stack>
                 </Grid>
 
-                <Grid item sx={6}>
+                <Grid item xs={6}>
                     <Stack
                         direction="row"
                         justifyContent="flex-end"
@@ -144,7 +155,7 @@ const VistaEquipo = () => {
 
                 {/*Actividades del la vista*/}
                 <Grid item xs={12} sm={12} md={4} lg={4}>
-                    <Card variant="outlined" sx={{ height: 1 }}>card</Card>
+                    <Card variant="outlined">card</Card>
 
                 </Grid>
 
@@ -165,10 +176,10 @@ const VistaEquipo = () => {
                     pr: 2
                 }}
             >
-                <IconButton onClick={Clipboard()} color="secondary"  >
+                <IconButton onClick={Clipboard} color="secondary"  >
                     <LinkOutlined />
                 </IconButton>
-                <IconButton component={Link} to={`/elementos/equipos`} color="secondary" >
+                <IconButton color="secondary" >
                     <PrinterFilled />
                 </IconButton>
             </Stack>
