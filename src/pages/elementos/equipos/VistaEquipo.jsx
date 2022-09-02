@@ -67,14 +67,14 @@ const VistaEquipo = () => {
             maxWidth={'xl'}
             PaperProps={{
                 style: {
-                    height: useWindowDimensions().height*0.9+'px'
+                    height: useWindowDimensions().height * 0.9 + 'px'
                 },
-              }}
+            }}
         >
 
             {console.log(useWindowDimensions())}
 
-            
+
 
             {/*Header de la vista*/}
             <Grid
@@ -87,7 +87,7 @@ const VistaEquipo = () => {
                 <Grid item xs={6} >
                     <Stack
                         direction="row"
-                        justifyContent="flex-end"
+                        justifyContent="flex-start"
                         alignItems="center"
                         spacing={1}
                     >
@@ -138,24 +138,50 @@ const VistaEquipo = () => {
             <Grid
                 container
                 spacing={2}
-                sx={{ p: 2 }}
+                sx={{ height: '100%', width: '100%', m: 0, overflow: 'hidden' }}
             >
 
                 {/*Datos de carga del elemento*/}
-                <Grid item xs={12} sm={12} md={8} lg={8}>
+                <Grid item xs={12} sm={12} md={8} lg={8}
+                    sx={{
+                        p: 2,
+                        height: '100%',
+                        overflow: 'auto',
+
+                        overflowY: "overlay",
+                        "::-webkit-scrollbar-track": {
+                            "borderRadius": "0px",
+                            "backgroundColor": "rgb(128, 128, 128, 0)",
+                        },
+                        "::-webkit-scrollbar": {
+                            "width": "7px",
+                            "backgroundColor": "rgb(128, 128, 128, 0)",
+                        },
+
+                        "::-webkit-scrollbar-thumb": {
+                            "borderRadius": "10px",
+                            "backgroundColor": "rgb(128, 128, 128, 0)",
+                        },
+
+                        ":hover::-webkit-scrollbar-thumb": {
+                            "backgroundColor": "rgb(128, 128, 128, 0.5)",
+                        }
+                    }}
+                >
                     <Stack
                         direction="column"
                         spacing={2}
                     >
-                        <Card variant="outlined">card</Card>
-                        <Card variant="outlined">card</Card>
-                        <Card variant="outlined">card</Card>
+                        <Card sx={{ height: '300px' }} variant="outlined">card</Card>
+                        <Card sx={{ height: '300px' }} variant="outlined">card</Card>
+                        <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                     </Stack>
                 </Grid>
 
                 {/*Actividades del la vista*/}
-                <Grid item xs={12} sm={12} md={4} lg={4}>
-                    <Card variant="outlined">card</Card>
+                <Grid item xs={12} sm={12} md={4} lg={4}
+                >
+                    <Card sx={{ height: '300px' }} variant="outlined">card</Card>
 
                 </Grid>
 
