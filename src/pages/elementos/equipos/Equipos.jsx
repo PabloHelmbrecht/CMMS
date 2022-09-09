@@ -4,7 +4,9 @@ import {
   Grid,
   Stack,
   Typography,
-  Tooltip
+  Tooltip,
+  useMediaQuery,
+  useTheme
 } from "@mui/material";
 
 
@@ -12,7 +14,6 @@ import {
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { isMobile } from "react-device-detect";
 
 //icons imports
 import { EditFilled, EyeFilled } from '@ant-design/icons';
@@ -26,6 +27,10 @@ import VistaEquipo from "./VistaEquipo.jsx";
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const Equipos = () => {
+
+  // Función para obtener los breakpoints
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   //Obtenemos el id pasado por router
   const { id } = useParams()

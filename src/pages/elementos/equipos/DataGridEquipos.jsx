@@ -1,6 +1,6 @@
 //Imports
 import { useState, useEffect } from "react";
-import { isMobile } from "react-device-detect";
+
 import moment from "moment";
 import "moment/locale/es";
 
@@ -12,7 +12,7 @@ import renderCellExpand from "../../../components/datagrid-components/CellExpand
 import equiposCall from "../../../api/elementos/equipos";
 
 //MUI Imports
-import { Chip } from "@mui/material";
+import { Chip, useMediaQuery, useTheme } from "@mui/material";
 
 //Icons Import
 import {
@@ -162,11 +162,15 @@ const columns = [
 //Data Grid Declaration
 export default function DataGridEquipos({ onSelection }) {
 
+  // Función para obtener los breakpoints
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+
   const [rows, setRows] = useState()
 
   useEffect(() => {
     setRows(equiposCall())
-  },[])
+  }, [])
 
   return (
     <DataGrid

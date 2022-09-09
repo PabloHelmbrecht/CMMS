@@ -2,14 +2,17 @@
 import React, { useEffect, useState } from "react";
 import {
     Button,
+    Box,
+    Typography,
     Dialog,
     Divider,
-    Typography,
     Card,
     Grid,
     IconButton,
     Stack,
-    Chip
+    Chip,
+    useTheme,
+    useMediaQuery
 } from "@mui/material";
 import { Link, useLocation, useParams } from "react-router-dom";
 
@@ -26,16 +29,16 @@ import {
 //project imports
 import useWindowDimensions from "../../../utils/WindowDimensions";
 
-
 /*Función para copiar link no est{a listo todavía*/
 const Clipboard = async () => {
     await navigator.clipboard.writeText(useLocation().pathname);
 }
 
-
-
-
 const VistaEquipo = () => {
+
+    // Función para obtener los breakpoints
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
     //Obtenemos el id de la ruta
     const { id, mode } = useParams()
@@ -72,10 +75,6 @@ const VistaEquipo = () => {
             }}
         >
 
-            {console.log(useWindowDimensions())}
-
-
-
             {/*Header de la vista*/}
             <Grid
                 container
@@ -84,7 +83,7 @@ const VistaEquipo = () => {
                 sx={{ p: 2 }}
             >
 
-                <Grid item xs={6} >
+                <Grid item xs={3} >
                     <Stack
                         direction="row"
                         justifyContent="flex-start"
@@ -95,7 +94,7 @@ const VistaEquipo = () => {
                     </Stack>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={9}>
                     <Stack
                         direction="row"
                         justifyContent="flex-end"
@@ -137,7 +136,7 @@ const VistaEquipo = () => {
             {/*Body de la vista*/}
             <Grid
                 container
-                spacing={2}
+                spacing={0}
                 sx={{ height: '100%', width: '100%', m: 0, overflow: 'hidden' }}
             >
 
@@ -147,7 +146,6 @@ const VistaEquipo = () => {
                         p: 2,
                         height: '100%',
                         overflow: 'auto',
-
                         overflowY: "overlay",
                         "::-webkit-scrollbar-track": {
                             "borderRadius": "0px",
@@ -172,16 +170,58 @@ const VistaEquipo = () => {
                         direction="column"
                         spacing={2}
                     >
-                        <Card sx={{ height: '300px' }} variant="outlined">card</Card>
+                        <Card sx={{ height: '300px' }} variant="outlined">{isMobile} </Card>
                         <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                         <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                     </Stack>
                 </Grid>
 
+                <Divider orientation="vertical" flexItem sx={{ ml: "-1px" }} />
+
                 {/*Actividades del la vista*/}
-                <Grid item xs={12} sm={12} md={4} lg={4}
-                >
-                    <Card sx={{ height: '300px' }} variant="outlined">card</Card>
+                <Grid container direction="column" xs={12} sm={12} md={4} lg={4} sx={{ height: '100%', overflow: 'hidden' }}>
+
+                    <Grid item xs={10.5}
+                        sx={{
+                            p: 2,
+                            overflow: 'auto',
+                            overflowY: "overlay",
+                            backgroundColor: "secondary.lighter",
+                            "::-webkit-scrollbar-track": {
+                                "borderRadius": "0px",
+                                "backgroundColor": "rgb(128, 128, 128, 0)",
+                            },
+                            "::-webkit-scrollbar": {
+                                "width": "7px",
+                                "backgroundColor": "rgb(128, 128, 128, 0)",
+                            },
+
+                            "::-webkit-scrollbar-thumb": {
+                                "borderRadius": "10px",
+                                "backgroundColor": "rgb(128, 128, 128, 0)",
+                            },
+
+                            ":hover::-webkit-scrollbar-thumb": {
+                                "backgroundColor": "rgb(128, 128, 128, 0.5)",
+                            }
+                        }}
+                    >
+                        <Stack
+                            direction="column"
+                            spacing={2}
+                        >
+                            <Card sx={{ height: '300px' }} variant="outlined">{isMobile} </Card>
+                            <Card sx={{ height: '300px' }} variant="outlined">card</Card>
+                            <Card sx={{ height: '300px' }} variant="outlined">card</Card>
+                        </Stack>
+                    </Grid>
+
+                    <Divider flexItem sx={{ mt: "-1px" }} />
+
+                    <Grid item xs={1.5} sx={{p:2, display: 'flex', alignItems: 'center'}} >
+                        Hola
+
+                    </Grid>
 
                 </Grid>
 
@@ -191,7 +231,6 @@ const VistaEquipo = () => {
             <Divider />
 
             {/*Footer de la vista*/}
-
             <Stack
                 direction="row"
                 justifyContent="flex-end"
