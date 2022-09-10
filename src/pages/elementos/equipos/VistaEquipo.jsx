@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import {
     Button,
-    Box,
-    Typography,
+    TextField,
     Dialog,
     Divider,
     Card,
@@ -23,7 +22,9 @@ import {
     EditFilled,
     CaretDownOutlined,
     PrinterFilled,
-    LinkOutlined
+    LinkOutlined,
+    SendOutlined,  
+    CameraOutlined
 } from '@ant-design/icons';
 
 //project imports
@@ -170,18 +171,20 @@ const VistaEquipo = () => {
                         direction="column"
                         spacing={2}
                     >
-                        <Card sx={{ height: '300px' }} variant="outlined">{isMobile} </Card>
+                        <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                         <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                         <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                     </Stack>
                 </Grid>
 
+                {/*Divisor entre datos de cargo y actividades*/}
                 <Divider orientation="vertical" flexItem sx={{ ml: "-1px" }} />
 
                 {/*Actividades del la vista*/}
-                <Grid container direction="column" xs={12} sm={12} md={4} lg={4} sx={{ height: '100%', overflow: 'hidden' }}>
+                <Grid container item direction="column" xs={12} sm={12} md={4} lg={4} sx={{ height: '100%', overflow: 'hidden' }}>
 
-                    <Grid item xs={10.5}
+                    {/*Listado de actividades*/}
+                    <Grid item xs={10}
                         sx={{
                             p: 2,
                             overflow: 'auto',
@@ -210,17 +213,30 @@ const VistaEquipo = () => {
                             direction="column"
                             spacing={2}
                         >
-                            <Card sx={{ height: '300px' }} variant="outlined">{isMobile} </Card>
+                            <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                             <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                             <Card sx={{ height: '300px' }} variant="outlined">card</Card>
                         </Stack>
                     </Grid>
 
+                    {/*Divisor*/}
                     <Divider flexItem sx={{ mt: "-1px" }} />
 
-                    <Grid item xs={1.5} sx={{p:2, display: 'flex', alignItems: 'center'}} >
-                        Hola
-
+                    {/*Input de comentarios*/}
+                    <Grid item container xs={1.5} sx={{ p: 1, pl: 2, pr: 2, display: 'flex', alignItems: 'center' }} >
+                        <Grid item xs={11}>
+                            <TextField fullWidth id="fullWidth" variant="standard" placeholder="Comenta..." multiline rows={3} />
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Stack>
+                                <IconButton color="secondary"  >
+                                    <CameraOutlined />
+                                </IconButton>
+                                <IconButton color="primary" >
+                                    <SendOutlined />
+                                </IconButton>
+                            </Stack>
+                        </Grid>
                     </Grid>
 
                 </Grid>

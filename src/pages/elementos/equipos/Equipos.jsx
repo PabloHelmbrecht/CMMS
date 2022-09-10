@@ -23,6 +23,8 @@ import MainCard from "../../../components/MainCard";
 import StatisticsCard from "../../../components/cards/statistics/StatisticsCard";
 import DataGridEquipos from "./DataGridEquipos.jsx";
 import VistaEquipo from "./VistaEquipo.jsx";
+import ElementDefinition from "../../../utils/ElementDefinition";
+import Error404 from "../../extra-pages/Error404";
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -33,9 +35,12 @@ const Equipos = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   //Obtenemos el id pasado por router
-  const { id } = useParams()
+  const { id, elementType } = useParams()
 
-  //Guardar estadísticas en un state para su persistencia
+  //Declaro el objeto elemento a partir de la clase Element Definition
+  const element = new ElementDefinition(elementType)
+
+    //Guardar estadísticas en un state para su persistencia
   const [statistics, setStatistics] = useState({
     Card1: {
       title: "Total de Equipos",
@@ -67,6 +72,7 @@ const Equipos = () => {
   const [rowSelected, setRowSelected] = useState(id)
 
   return (
+    element.exists()?
     <>
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
         {/* Fila 1: Titulo Indicadores */}
@@ -128,30 +134,30 @@ const Equipos = () => {
           <Grid container alignItems="center" justifyContent="space-between">
             {/* Título de Tabla */}
             <Grid item>
-              <Typography variant="h5">Equipos</Typography>
+              <Typography variant="h5">{element.capitalized()}</Typography>
             </Grid>
 
             {/* Botones de Tabla */}
             <Grid item>
               <Stack direction="row" alignItems="center" spacing={1} sx={{ pt: isMobile ? 1 : 0 }} >
-                {rowSelected && <Tooltip title="Ver equipo seleccionado"><Button
+                {rowSelected && <Tooltip title={`Ver ${element.singular()} seleccionado`}><Button
                   size="small"
                   color={"primary"}
                   variant={"contained"}
                   startIcon={<EyeFilled />}
                   component={Link}
-                  to={`/elementos/equipos/${rowSelected} `}
+                  to={`/elementos/${element.getName()}/${rowSelected} `}
 
                 >
                   Ver
                 </Button></Tooltip>}
-                {rowSelected && <Tooltip title="Editar equipo seleccionado"><Button
+                {rowSelected && <Tooltip title={`Editar ${element.singular()} seleccionado`}><Button
                   size="small"
                   color={"primary"}
                   variant={"outlined"}
                   startIcon={<EditFilled />}
                   component={Link}
-                  to={`/elementos/equipos/${rowSelected}/edit `}
+                  to={`/elementos/${element.getName()}/${rowSelected}/edit `}
                 >
                   Editar
                 </Button></Tooltip>}
@@ -161,7 +167,7 @@ const Equipos = () => {
                   color={rowSelected ? "secondary" : "primary"}
                   variant={"contained"}
                 >
-                  Crear Equipo
+                  Crear {element.singularCapitalized()}
                 </Button>
                 <Button
                   size="small"
@@ -183,6 +189,8 @@ const Equipos = () => {
       </Grid>
       <VistaEquipo />
     </>
+    :
+    <Error404/>
   );
 };
 

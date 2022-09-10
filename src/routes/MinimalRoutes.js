@@ -9,6 +9,10 @@ const AuthLogin = Loadable(lazy(() => import("../pages/authentication/Login")));
 const AuthRegister = Loadable(
   lazy(() => import("../pages/authentication/Register"))
 );
+const Error404 = Loadable(
+  lazy(() => import("../pages/extra-pages/Error404"))
+);
+
 
 // ==============================|| AUTH ROUTING ||============================== //
 
@@ -23,6 +27,10 @@ const LoginRoutes = {
     {
       path: "register",
       element: <AuthRegister />
+    },
+    {
+      path: "*",
+      element: <Error404 />
     }
   ]
 };

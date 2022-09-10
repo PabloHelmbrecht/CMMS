@@ -69,7 +69,7 @@ const MainRoutes = {
       element: <AntIcons />
     },
     {
-      path: "elementos/equipos",
+      path: "elementos/:elementType",
       children: [
         {
           path: "",
