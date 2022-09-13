@@ -1,9 +1,10 @@
 //Imports
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import {
   Button,
   Avatar,
-  Box,
+  Paper,
   TextField,
   Dialog,
   Divider,
@@ -14,6 +15,7 @@ import {
   Chip,
   useTheme,
   useMediaQuery,
+  Typography,
 } from "@mui/material";
 import { Link, useLocation, useParams } from "react-router-dom";
 
@@ -31,26 +33,13 @@ import {
 
 //project imports
 import useWindowDimensions from "../../../utils/WindowDimensions";
+import UpdateMessage from "../../../components/elementview-components/UpdateMessage";
+import avatar1 from "../../../assets/images/users/avatar-1.png";
+import imageArrayDB from "../../../api/elementos/imageArrayDB.js";
 
 /*Función para copiar link no est{a listo todavía*/
 const Clipboard = async () => {
   await navigator.clipboard.writeText(useLocation().pathname);
-};
-
-const Message = ({ type, content, user }) => {
-  return (
-    <Stack
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="flex-start"
-      spacing={2}
-    >
-      <Avatar>H</Avatar>
-      <Card variant="outlined" sx={{ width: "80%", p: 1 }}>
-        {content}
-      </Card>
-    </Stack>
-  );
 };
 
 const VistaEquipo = () => {
@@ -192,9 +181,6 @@ const VistaEquipo = () => {
             <Card sx={{ height: "300px" }} variant="outlined">
               card
             </Card>
-            <Card sx={{ height: "300px" }} variant="outlined">
-              card
-            </Card>
           </Stack>
         </Grid>
 
@@ -240,14 +226,42 @@ const VistaEquipo = () => {
               },
             }}
           >
-            <Stack direction="column" spacing={2}>
-              <Card sx={{ height: "300px" }} variant="outlined">
-                card
-              </Card>
-              <Card sx={{ height: "300px" }} variant="outlined">
-                card
-              </Card>
-              <Message content={"Holaass"}>card</Message>
+            <Stack direction="column" spacing={3}>
+              <UpdateMessage
+                avatar={avatar1}
+                time={moment().calendar()}
+                content={
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vehicula augue quis hendrerit placerat. Integer sodales nulla leo, ac condimentum nulla vestibulum eu. Quisque fringilla tristique sapien, vel ultrices mauris maximus ut. Pellentesque lobortis vel risus a hendrerit. In hendrerit, nisl eget commodo consectetur, orci arcu molestie justo,"
+                }
+                imageArray={imageArrayDB()}
+              />
+              <UpdateMessage
+                type={"workOrder"}
+                time={moment().calendar()}
+                content={
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vehicula augue quis hendrerit placerat."
+                }
+              />
+              <UpdateMessage
+                type={"activity"}
+                time={moment().calendar()}
+                content={
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vehicula augue quis hendrerit placerat. Integer sodales nulla leo, ac condimentum nulla vestibulum eu. Quisque fringilla tristique sapien, vel ultrices mauris maximus ut. Pellentesque lobortis vel risus a hendrerit. In hendrerit, nisl eget commodo consectetur, orci arcu molestie justo,"
+                }
+              />
+              <UpdateMessage
+                type={"update"}
+                time={moment().calendar()}
+                content={
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vehicula augue quis hendrerit placerat."
+                }
+              />
+              <UpdateMessage
+                time={moment().calendar()}
+                content={
+                  "Holaas4cc5c6b7u6b6iunb8iu 86jn686n8ini7nuynbyrbvtyrvretvyv6yvs"
+                }
+              />
             </Stack>
           </Grid>
 
@@ -258,7 +272,7 @@ const VistaEquipo = () => {
           <Grid
             item
             container
-            xs={1.5}
+            xs={2}
             sx={{ p: 1, pl: 2, pr: 2, display: "flex", alignItems: "center" }}
           >
             <Grid item xs={11}>
