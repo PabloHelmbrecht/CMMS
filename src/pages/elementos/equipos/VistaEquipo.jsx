@@ -202,10 +202,12 @@ const VistaEquipo = () => {
           <Grid
             item
             xs={10}
+            xl={11}
             sx={{
               p: 2,
               overflow: "auto",
               overflowY: "overlay",
+              width: "100%",
               backgroundColor: "secondary.lighter",
               "::-webkit-scrollbar-track": {
                 borderRadius: "0px",
@@ -259,7 +261,7 @@ const VistaEquipo = () => {
               <UpdateMessage
                 time={moment().calendar()}
                 content={
-                  "Holaas4cc5c6b7u6b6iunb8iu 86jn686n8ini7nuynbyrbvtyrvretvyv6yvs"
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vehicula augue quis hendrerit placerat."
                 }
               />
             </Stack>
@@ -273,6 +275,7 @@ const VistaEquipo = () => {
             item
             container
             xs={2}
+            xl={1}
             sx={{ p: 1, pl: 2, pr: 2, display: "flex", alignItems: "center" }}
           >
             <Grid item xs={11}>

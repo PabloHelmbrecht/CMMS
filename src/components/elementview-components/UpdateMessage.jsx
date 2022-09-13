@@ -54,7 +54,10 @@ export default function UpdateMessage({
               sxList={{ mt: 1, mb: 2 }}
             />
           )}
+          <Typography variant="body1" color="textPrimary">
           {content}
+        </Typography>
+          
         </Paper>
         <Typography variant="Gutter Bottom" color="textSecondary">
           {time}
