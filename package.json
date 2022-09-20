@@ -102,5 +102,8 @@
     "@storybook/testing-library": "^0.0.13",
     "babel-plugin-named-exports-order": "^0.0.2",
     "webpack": "^5.74.0"
-  }
+  },
+  "keywords": [],
+  "name": "dialog-para-imagenes",
+  "description": ""
 }

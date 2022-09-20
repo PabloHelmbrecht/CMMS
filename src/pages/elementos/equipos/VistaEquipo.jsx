@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import {
   Button,
-  Avatar,
-  Paper,
   TextField,
   Dialog,
   Divider,
@@ -14,8 +12,7 @@ import {
   Stack,
   Chip,
   useTheme,
-  useMediaQuery,
-  Typography,
+  useMediaQuery
 } from "@mui/material";
 import { Link, useLocation, useParams } from "react-router-dom";
 
@@ -28,7 +25,7 @@ import {
   PrinterFilled,
   LinkOutlined,
   SendOutlined,
-  CameraOutlined,
+  CameraOutlined
 } from "@ant-design/icons";
 
 //project imports
@@ -53,7 +50,7 @@ const VistaEquipo = () => {
 
   //Declaramos los estados
   const [open, setOpen] = useState(
-    Number.isInteger(parseInt(id)) && parseInt(id) > 0
+    Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0
   );
   const [editMode, setEditMode] = useState(mode === "edit");
 
@@ -63,7 +60,7 @@ const VistaEquipo = () => {
     setEditMode(mode === "edit");
 
     //Si existe un id abrir la vista
-    setOpen(Number.isInteger(parseInt(id)) && parseInt(id) > 0);
+    setOpen(Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0);
   }, [id, mode, location]);
 
   //! https://stackoverflow.com/questions/70415223/how-to-move-the-image-partially-outside-of-mui-dialog para agregar las flechas afuera
@@ -75,8 +72,8 @@ const VistaEquipo = () => {
       maxWidth={"xl"}
       PaperProps={{
         style: {
-          height: useWindowDimensions().height * 0.9 + "px",
-        },
+          height: useWindowDimensions().height * 0.9 + "px"
+        }
       }}
     >
       {/*Header de la vista*/}
@@ -157,21 +154,21 @@ const VistaEquipo = () => {
             overflowY: "overlay",
             "::-webkit-scrollbar-track": {
               borderRadius: "0px",
-              backgroundColor: "rgb(128, 128, 128, 0)",
+              backgroundColor: "rgb(128, 128, 128, 0)"
             },
             "::-webkit-scrollbar": {
               width: "7px",
-              backgroundColor: "rgb(128, 128, 128, 0)",
+              backgroundColor: "rgb(128, 128, 128, 0)"
             },
 
             "::-webkit-scrollbar-thumb": {
               borderRadius: "10px",
-              backgroundColor: "rgb(128, 128, 128, 0)",
+              backgroundColor: "rgb(128, 128, 128, 0)"
             },
 
             ":hover::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgb(128, 128, 128, 0.5)",
-            },
+              backgroundColor: "rgb(128, 128, 128, 0.5)"
+            }
           }}
         >
           <Stack direction="column" spacing={2}>
@@ -211,21 +208,21 @@ const VistaEquipo = () => {
               backgroundColor: "secondary.lighter",
               "::-webkit-scrollbar-track": {
                 borderRadius: "0px",
-                backgroundColor: "rgb(128, 128, 128, 0)",
+                backgroundColor: "rgb(128, 128, 128, 0)"
               },
               "::-webkit-scrollbar": {
                 width: "7px",
-                backgroundColor: "rgb(128, 128, 128, 0)",
+                backgroundColor: "rgb(128, 128, 128, 0)"
               },
 
               "::-webkit-scrollbar-thumb": {
                 borderRadius: "10px",
-                backgroundColor: "rgb(128, 128, 128, 0)",
+                backgroundColor: "rgb(128, 128, 128, 0)"
               },
 
               ":hover::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgb(128, 128, 128, 0.5)",
-              },
+                backgroundColor: "rgb(128, 128, 128, 0.5)"
+              }
             }}
           >
             <Stack direction="column" spacing={3}>
@@ -313,7 +310,7 @@ const VistaEquipo = () => {
         sx={{
           p: 1,
           pl: 2,
-          pr: 2,
+          pr: 2
         }}
       >
         <IconButton onClick={Clipboard} color="secondary">
