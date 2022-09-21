@@ -2,7 +2,7 @@ import { Typography, Box, ImageListItem, ImageList } from "@mui/material";
 import { useState } from "react";
 
 //project imports
-import ImageView from "./ImageView";
+import ImageLightbox from "./ImageLightbox";
 import srcset from "../../utils/image-formatter";
 
 export default function ImageMasonry({
@@ -108,7 +108,7 @@ export default function ImageMasonry({
           </ImageListItem>
         )}
       </ImageList>
-      <ImageView onClose={handleClose} open={open} imageArray={imageArray} />
+      <ImageLightbox onClose={handleClose} open={open} imageArray={imageArray} />
     </>
   );
 }
