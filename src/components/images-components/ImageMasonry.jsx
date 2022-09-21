@@ -15,7 +15,6 @@ export default function ImageMasonry({
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
-    console.log("Abierto");
     setOpen(true);
   };
   const handleClose = () => {

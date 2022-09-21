@@ -10,6 +10,7 @@ function imageArrayDB() {
   'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
 
   'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
+  'https://images.unsplash.com/photo-1661956603025-8310b2e3036d',
 ]}
 
 export default  imageArrayDB
