@@ -12,7 +12,9 @@ import {
   Stack,
   Chip,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  BottomNavigation,
+  BottomNavigationAction,
 } from "@mui/material";
 import { Link, useLocation, useParams } from "react-router-dom";
 
@@ -25,7 +27,9 @@ import {
   PrinterFilled,
   LinkOutlined,
   SendOutlined,
-  CameraOutlined
+  CameraOutlined,
+  InfoCircleFilled,
+  MessageFilled
 } from "@ant-design/icons";
 
 //project imports
@@ -53,6 +57,7 @@ const VistaEquipo = () => {
     Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0
   );
   const [editMode, setEditMode] = useState(mode === "edit");
+  const [indexBottomNavigation, setIndexBottomNavigation] = useState(0)
 
   //Guardamos el id en el store
   useEffect(() => {
@@ -62,8 +67,6 @@ const VistaEquipo = () => {
     //Si existe un id abrir la vista
     setOpen(Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0);
   }, [id, mode, location]);
-
-  //! https://stackoverflow.com/questions/70415223/how-to-move-the-image-partially-outside-of-mui-dialog para agregar las flechas afuera
 
   return (
     <Dialog
@@ -149,6 +152,7 @@ const VistaEquipo = () => {
           lg={8}
           sx={{
             p: 2,
+            display: (isMobile && (indexBottomNavigation !== 0)) ? "none" : "",
             height: "100%",
             overflow: "auto",
             overflowY: "overlay",
@@ -182,7 +186,7 @@ const VistaEquipo = () => {
         </Grid>
 
         {/*Divisor entre datos de cargo y actividades*/}
-        <Divider orientation="vertical" flexItem sx={{ ml: "-1px" }} />
+        {isMobile || <Divider orientation="vertical" flexItem sx={{ ml: "-1px" }} />}
 
         {/*Actividades del la vista*/}
         <Grid
@@ -193,7 +197,7 @@ const VistaEquipo = () => {
           sm={12}
           md={4}
           lg={4}
-          sx={{ height: "100%", overflow: "hidden" }}
+          sx={{ height: "100%", overflow: "hidden", display: (isMobile && (indexBottomNavigation !== 1)) ? "none" : "" }}
         >
           {/*Listado de actividades*/}
           <Grid
@@ -301,6 +305,22 @@ const VistaEquipo = () => {
 
       {/*Divisor de la vista*/}
       <Divider />
+
+      {isMobile &&
+        <>
+          <BottomNavigation
+            showLabels
+            value={indexBottomNavigation}
+            onChange={(event, newIndex) => {
+              setIndexBottomNavigation(newIndex);
+            }}
+          >
+            <BottomNavigationAction label="Información" icon={<InfoCircleFilled />} sx={{ maxWidth: "50%", p: 2, '& svg': { fontSize: 15, mb: 0.5 } }} />
+            <BottomNavigationAction label="Actividades" icon={<MessageFilled />} sx={{ maxWidth: "50%", p: 2, '& svg': { fontSize: 15, mb: 0.5 } }} />
+          </BottomNavigation>
+          <Divider />
+        </>
+      }
 
       {/*Footer de la vista*/}
       <Stack

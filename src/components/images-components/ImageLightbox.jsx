@@ -1,4 +1,4 @@
-import { Dialog, Box, IconButton, Skeleton } from "@mui/material";
+import { Dialog, Box, IconButton, Skeleton, useMediaQuery } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import { useState } from "react";
 
@@ -7,7 +7,6 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 //project imports
 import useWindowDimensions from "../../utils/WindowDimensions";
-import { width } from "@mui/system";
 import useKeyPress from "../../utils/useKeyPress";
 import { useEffect } from "react";
 
@@ -16,6 +15,7 @@ const ImageView = ({ open, onClose, imageArray }) => {
   const windowDimensions = useWindowDimensions()
   const ArrowLeft = useKeyPress('ArrowLeft');
   const ArrowRight = useKeyPress('ArrowRight');
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,6 @@ const ImageView = ({ open, onClose, imageArray }) => {
   const handleRightClick = () => {
     index === imageArray.length - 1 ? setIndex(0) : setIndex(index + 1);
     setLoading(true)
-    console.log(index)
   };
 
   //Set the skeleton dimentions and handle the loading status
@@ -49,7 +48,7 @@ const ImageView = ({ open, onClose, imageArray }) => {
       ArrowRight && handleRightClick()
     }
 
-  }, [ArrowLeft, ArrowRight])
+  }, [ArrowLeft, ArrowRight,open])
 
 
 
@@ -64,10 +63,10 @@ const ImageView = ({ open, onClose, imageArray }) => {
         }
       }}
     >
-      <IconButton onClick={handleLeftClick} size="large" color="default" sx={{ position: "absolute", top: "50%", left: "-3rem", color: theme.palette.secondary.A100 }} >
+      <IconButton onClick={handleLeftClick} size="large" color="default" sx={{ position: "absolute", bottom: isMobile?"-4rem":"50%", left: isMobile?"30%":"-3rem", color: theme.palette.secondary.A100 }} >
         <LeftOutlined />
       </IconButton>
-      <IconButton onClick={handleRightClick} size="large" color="default" sx={{ position: "absolute", top: "50%", right: "-3rem", color: theme.palette.secondary.A100 }} >
+      <IconButton onClick={handleRightClick} size="large" color="default" sx={{ position: "absolute", bottom: isMobile?"-4rem":"50%", right: isMobile?"30%":"-3rem", color: theme.palette.secondary.A100 }} >
         <RightOutlined />
       </IconButton>
 
