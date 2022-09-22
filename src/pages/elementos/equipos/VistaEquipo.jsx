@@ -15,6 +15,7 @@ import {
   useMediaQuery,
   BottomNavigation,
   BottomNavigationAction,
+  Badge,
 } from "@mui/material";
 import { Link, useLocation, useParams } from "react-router-dom";
 
@@ -29,7 +30,7 @@ import {
   SendOutlined,
   CameraOutlined,
   InfoCircleFilled,
-  MessageFilled
+  MessageFilled,
 } from "@ant-design/icons";
 
 //project imports
@@ -44,8 +45,10 @@ const Clipboard = async () => {
 };
 
 const VistaEquipo = () => {
-  // Función para obtener los breakpoints
+  //Obtenemos el tema
   const theme = useTheme();
+
+  // Función para obtener los breakpoints
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   //Obtenemos el id de la ruta
@@ -57,7 +60,10 @@ const VistaEquipo = () => {
     Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0
   );
   const [editMode, setEditMode] = useState(mode === "edit");
-  const [indexBottomNavigation, setIndexBottomNavigation] = useState(0)
+  const [indexBottomNavigation, setIndexBottomNavigation] = useState(0);
+  const [textFieldFocus, setTextFieldFocus] = useState(false);
+  const [commentExist, setCommentExist] = useState(true);
+  const [imagesAttached, setImagesAttached] = useState({ length: 0 });
 
   //Guardamos el id en el store
   useEffect(() => {
@@ -68,6 +74,12 @@ const VistaEquipo = () => {
     setOpen(Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0);
   }, [id, mode, location]);
 
+  function handleImagesAttached(e) {
+    const files = e.target.files;
+
+    setImagesAttached({ files, length: parseInt(files.length, 10) });
+  }
+
   return (
     <Dialog
       open={open}
@@ -75,8 +87,8 @@ const VistaEquipo = () => {
       maxWidth={"xl"}
       PaperProps={{
         style: {
-          height: useWindowDimensions().height * 0.9 + "px"
-        }
+          height: useWindowDimensions().height * 0.9 + "px",
+        },
       }}
     >
       {/*Header de la vista*/}
@@ -86,7 +98,7 @@ const VistaEquipo = () => {
         justifyContent="space-between"
         sx={{ p: 2 }}
       >
-        <Grid item xs={3}>
+        <Grid item xs={4} md={3}>
           <Stack
             direction="row"
             justifyContent="flex-start"
@@ -97,7 +109,7 @@ const VistaEquipo = () => {
           </Stack>
         </Grid>
 
-        <Grid item xs={9}>
+        <Grid item xs={8} md={9}>
           <Stack
             direction="row"
             justifyContent="flex-end"
@@ -152,27 +164,27 @@ const VistaEquipo = () => {
           lg={8}
           sx={{
             p: 2,
-            display: (isMobile && (indexBottomNavigation !== 0)) ? "none" : "",
+            display: isMobile && indexBottomNavigation !== 0 ? "none" : "",
             height: "100%",
             overflow: "auto",
             overflowY: "overlay",
             "::-webkit-scrollbar-track": {
               borderRadius: "0px",
-              backgroundColor: "rgb(128, 128, 128, 0)"
+              backgroundColor: "rgb(128, 128, 128, 0)",
             },
             "::-webkit-scrollbar": {
               width: "7px",
-              backgroundColor: "rgb(128, 128, 128, 0)"
+              backgroundColor: "rgb(128, 128, 128, 0)",
             },
 
             "::-webkit-scrollbar-thumb": {
               borderRadius: "10px",
-              backgroundColor: "rgb(128, 128, 128, 0)"
+              backgroundColor: "rgb(128, 128, 128, 0)",
             },
 
             ":hover::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgb(128, 128, 128, 0.5)"
-            }
+              backgroundColor: "rgb(128, 128, 128, 0.5)",
+            },
           }}
         >
           <Stack direction="column" spacing={2}>
@@ -186,7 +198,11 @@ const VistaEquipo = () => {
         </Grid>
 
         {/*Divisor entre datos de cargo y actividades*/}
-        <Divider orientation="vertical" flexItem sx={{ ml: "-1px", display: isMobile?"none":"" }} />
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ ml: "-1px", display: isMobile ? "none" : "" }}
+        />
 
         {/*Actividades del la vista*/}
         <Grid
@@ -197,38 +213,41 @@ const VistaEquipo = () => {
           sm={12}
           md={4}
           lg={4}
-          sx={{ height: "100%", overflow: "hidden", display: (isMobile && (indexBottomNavigation !== 1)) ? "none" : "" }}
+          sx={{
+            height: "100%",
+            overflow: "hidden",
+            display: isMobile && indexBottomNavigation !== 1 ? "none" : "",
+            flexWrap: "nowrap",
+          }}
         >
           {/*Listado de actividades*/}
           <Grid
             item
-            xs={9}
-            md={10}
-            xl={11}
+            xs={11}
+            xl={10.5}
             sx={{
               p: 2,
               overflow: "auto",
               overflowY: "overlay",
               width: "100%",
-              maxHeight: isMobile?"80%":"100%",
               backgroundColor: "secondary.lighter",
               "::-webkit-scrollbar-track": {
                 borderRadius: "0px",
-                backgroundColor: "rgb(128, 128, 128, 0)"
+                backgroundColor: "rgb(128, 128, 128, 0)",
               },
               "::-webkit-scrollbar": {
                 width: "7px",
-                backgroundColor: "rgb(128, 128, 128, 0)"
+                backgroundColor: "rgb(128, 128, 128, 0)",
               },
 
               "::-webkit-scrollbar-thumb": {
                 borderRadius: "10px",
-                backgroundColor: "rgb(128, 128, 128, 0)"
+                backgroundColor: "rgb(128, 128, 128, 0)",
               },
 
               ":hover::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgb(128, 128, 128, 0.5)"
-              }
+                backgroundColor: "rgb(128, 128, 128, 0.5)",
+              },
             }}
           >
             <Stack direction="column" spacing={3}>
@@ -277,10 +296,14 @@ const VistaEquipo = () => {
           <Grid
             item
             container
-            xs={3}
-            md={2}
-            xl={1}
-            sx={{ p: 1, pl: 2, pr: 2, display: "flex", alignItems: "center", maxHeight: isMobile?"20%":"100%" }}
+            xs={1}
+            sx={{
+              p: 1,
+              pl: 2,
+              pr: 2,
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <Grid item xs={11}>
               <TextField
@@ -290,12 +313,35 @@ const VistaEquipo = () => {
                 placeholder="Comenta..."
                 multiline
                 rows={3}
+                onFocus={(e) => {
+                  setTextFieldFocus(true);
+                }}
+                onBlur={(e) => {
+                  setTextFieldFocus(false);
+                }}
               />
             </Grid>
             <Grid item xs={1}>
               <Stack>
-                <IconButton color="secondary">
-                  <CameraOutlined />
+                <IconButton
+                  color={imagesAttached.length > 0 ? "primary" : "secondary"}
+                  aria-label="upload picture"
+                  component="label"
+                >
+                  <input
+                    hidden
+                    accept="image/*"
+                    type="file"
+                    multiple="multiple"
+                    onChange={handleImagesAttached}
+                  />
+                  <Badge
+                    badgeContent={imagesAttached.length || 0}
+                    color="primary"
+                    invisible={imagesAttached.length <= 0}
+                  >
+                    <CameraOutlined />
+                  </Badge>
                 </IconButton>
                 <IconButton color="primary">
                   <SendOutlined />
@@ -309,7 +355,7 @@ const VistaEquipo = () => {
       {/*Divisor de la vista*/}
       <Divider />
 
-      {isMobile &&
+      {isMobile && !textFieldFocus && (
         <>
           <BottomNavigation
             showLabels
@@ -318,12 +364,20 @@ const VistaEquipo = () => {
               setIndexBottomNavigation(newIndex);
             }}
           >
-            <BottomNavigationAction label="Información" icon={<InfoCircleFilled />} sx={{ maxWidth: "50%", p: 2, '& svg': { fontSize: 15, mb: 0.5 } }} />
-            <BottomNavigationAction label="Actividades" icon={<MessageFilled />} sx={{ maxWidth: "50%", p: 2, '& svg': { fontSize: 15, mb: 0.5 } }} />
+            <BottomNavigationAction
+              label="Información"
+              icon={<InfoCircleFilled />}
+              sx={{ maxWidth: "50%", p: 2, "& svg": { fontSize: 15, mb: 0.5 } }}
+            />
+            <BottomNavigationAction
+              label="Actividades"
+              icon={<MessageFilled />}
+              sx={{ maxWidth: "50%", p: 2, "& svg": { fontSize: 15, mb: 0.5 } }}
+            />
           </BottomNavigation>
           <Divider />
         </>
-      }
+      )}
 
       {/*Footer de la vista*/}
       <Stack
@@ -333,7 +387,7 @@ const VistaEquipo = () => {
         sx={{
           p: 1,
           pl: 2,
-          pr: 2
+          pr: 2,
         }}
       >
         <IconButton onClick={Clipboard} color="secondary">
