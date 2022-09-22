@@ -1,12 +1,8 @@
 //Imports
-import React, { useEffect, useState } from "react";
-import {
-  Stack,Avatar,Paper,Typography
-} from "@mui/material";
+import { Stack, Avatar, Paper, Typography } from "@mui/material";
 
 //Project imports
 import ImageMasonry from "../../components/images-components/ImageMasonry";
-
 
 export default function UpdateMessage({
   type = "comment",
@@ -40,7 +36,7 @@ export default function UpdateMessage({
           sx={{
             width: 1,
             p: 1,
-            borderTop: type != "comment" ? "4px solid" : "",
+            borderTop: type !== "comment" ? "4px solid" : "",
             borderColor: `${colors[type] || "secondary"}.main`,
             display: "flex",
             flexDirection: "column",
@@ -48,16 +44,15 @@ export default function UpdateMessage({
         >
           {imageArray && (
             <ImageMasonry
-            imageArray={imageArray}
+              imageArray={imageArray}
               color={`${colors[type] || "secondary"}.main`}
               sxImage={{ borderRadius: "0.25em" }}
               sxList={{ mt: 1, mb: 2 }}
             />
           )}
           <Typography variant="body1" color="textPrimary">
-          {content}
-        </Typography>
-          
+            {content}
+          </Typography>
         </Paper>
         <Typography variant="Gutter Bottom" color="textSecondary">
           {time}
@@ -65,4 +60,4 @@ export default function UpdateMessage({
       </Stack>
     </Stack>
   );
-};
+}
