@@ -210,7 +210,7 @@ const VistaEquipo = () => {
               overflow: "auto",
               overflowY: "overlay",
               width: "100%",
-              maxHeight: "80%",
+              maxHeight: isMobile?"80%":"100%",
               backgroundColor: "secondary.lighter",
               "::-webkit-scrollbar-track": {
                 borderRadius: "0px",
@@ -280,7 +280,7 @@ const VistaEquipo = () => {
             xs={3}
             md={2}
             xl={1}
-            sx={{ p: 1, pl: 2, pr: 2, display: "flex", alignItems: "center", maxHeight: "20%" }}
+            sx={{ p: 1, pl: 2, pr: 2, display: "flex", alignItems: "center", maxHeight: isMobile?"20%":"100%" }}
           >
             <Grid item xs={11}>
               <TextField
