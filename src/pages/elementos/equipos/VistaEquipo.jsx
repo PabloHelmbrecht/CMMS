@@ -186,7 +186,7 @@ const VistaEquipo = () => {
         </Grid>
 
         {/*Divisor entre datos de cargo y actividades*/}
-        {isMobile || <Divider orientation="vertical" flexItem sx={{ ml: "-1px" }} />}
+        <Divider orientation="vertical" flexItem sx={{ ml: "-1px", display: isMobile?"none":"" }} />
 
         {/*Actividades del la vista*/}
         <Grid
@@ -202,7 +202,8 @@ const VistaEquipo = () => {
           {/*Listado de actividades*/}
           <Grid
             item
-            xs={10}
+            xs={9}
+            md={10}
             xl={11}
             sx={{
               p: 2,
@@ -275,7 +276,8 @@ const VistaEquipo = () => {
           <Grid
             item
             container
-            xs={2}
+            xs={3}
+            md={2}
             xl={1}
             sx={{ p: 1, pl: 2, pr: 2, display: "flex", alignItems: "center" }}
           >
