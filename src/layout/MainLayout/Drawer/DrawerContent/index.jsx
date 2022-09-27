@@ -1,5 +1,5 @@
 // project import
-import NavCard from "./NavCard";
+//import NavCard from "./NavCard";
 import Navigation from "./Navigation";
 import SimpleBar from "../../../../components/third-party/SimpleBar";
 
@@ -10,23 +10,22 @@ const DrawerContent = () => (
     sx={{
       "& .simplebar-content": {
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
       },
 
-      "overflowY": "overlay",
+      overflowY: "overlay",
       "::-webkit-scrollbar-track": {
-        "borderRadius": "0px",
-        "backgroundColor": "rgb(128, 128, 128, 0)",
+        borderRadius: "0px",
+        backgroundColor: "rgb(128, 128, 128, 0)",
       },
       "::-webkit-scrollbar": {
-        "width": "7px",
-        "backgroundColor": "rgb(128, 128, 128, 0)",
+        width: "7px",
+        backgroundColor: "rgb(128, 128, 128, 0)",
       },
       "::-webkit-scrollbar-thumb": {
-        "borderRadius": "10px",
-        "backgroundColor": "rgb(128, 128, 128, 0.5)",
-
-      }
+        borderRadius: "10px",
+        backgroundColor: "rgb(128, 128, 128, 0.5)",
+      },
     }}
   >
     <Navigation />

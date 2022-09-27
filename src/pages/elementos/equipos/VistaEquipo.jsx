@@ -15,9 +15,11 @@ import {
   useMediaQuery,
   BottomNavigation,
   BottomNavigationAction,
-  Badge
-} from "@mui/material"
-rt { Link, useLocation, useParams } from "react-router-dom";
+  Badge,
+  Box,
+  Typography,
+} from "@mui/material";
+import { Link, useLocation, useParams, Navigate } from "react-router-dom";
 
 //icons imports
 import {
@@ -31,6 +33,8 @@ import {
   CameraOutlined,
   InfoCircleFilled,
   MessageFilled,
+  LeftOutlined,
+  RightOutlined,
 } from "@ant-design/icons";
 
 //project imports
@@ -38,6 +42,7 @@ import useWindowDimensions from "../../../utils/WindowDimensions";
 import UpdateMessage from "../../../components/elementview-components/UpdateMessage";
 import avatar1 from "../../../assets/images/users/avatar-1.png";
 import imageArrayDB from "../../../api/elementos/imageArrayDB.js";
+import useKeyPress from "../../../utils/useKeyPress";
 
 /*Función para copiar link no est{a listo todavía*/
 const Clipboard = async () => {
@@ -52,18 +57,35 @@ const VistaEquipo = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   //Obtenemos el id de la ruta
-  const { id, mode } = useParams();
+  const { id, mode, elementType } = useParams();
   const location = useLocation();
 
   //Declaramos los estados
+
+  //Apertura de la vista
   const [open, setOpen] = useState(
     Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0
   );
+
+  //Modo edición activado
   const [editMode, setEditMode] = useState(mode === "edit");
+
+  //Estado para guardar posición del Bottom Navigation en la vista mobile
   const [indexBottomNavigation, setIndexBottomNavigation] = useState(0);
+
+  //Estado para detectar si se está escribiendo un comentario
   const [textFieldFocus, setTextFieldFocus] = useState(false);
+
+  //Estado para detectar si hay un comentario guardado
   const [commentExist, setCommentExist] = useState(true);
+
+  //Imágenes adjuntas
   const [imagesAttached, setImagesAttached] = useState({ length: 0 });
+
+  //Teclas presionadas
+  const ArrowLeft = useKeyPress("ArrowLeft");
+  const ArrowRight = useKeyPress("ArrowRight");
+  const Exit = useKeyPress("Tab");
 
   //Guardamos el id en el store
   useEffect(() => {
@@ -74,11 +96,26 @@ const VistaEquipo = () => {
     setOpen(Number.isInteger(parseInt(id, 10)) && parseInt(id, 10) > 0);
   }, [id, mode, location]);
 
+  //handler para adjuntar imágenes
   function handleImagesAttached(e) {
     const files = e.target.files;
 
     setImagesAttached({ files, length: parseInt(files.length, 10) });
   }
+
+  //Ir al elemento anterior
+  const goToPreviousElement = () => {};
+
+  //Ir al siguiente elemento
+  const goToNextElement = () => {};
+
+  //Listen to keyboard event
+  useEffect(() => {
+    if (open) {
+      ArrowLeft && goToPreviousElement();
+      ArrowRight && goToNextElement();
+    }
+  }, [ArrowLeft, ArrowRight, open]);
 
   return (
     <Dialog
@@ -87,10 +124,41 @@ const VistaEquipo = () => {
       maxWidth={"xl"}
       PaperProps={{
         style: {
-          height: useWindowDimensions().height * 0.9 + "px",
+          height: useWindowDimensions().height * (isMobile ? 0.8 : 0.9) + "px",
+          overflow: "inherit",
         },
       }}
     >
+      {/*Flechas de Navegación*/}
+      <IconButton
+        onClick={goToPreviousElement}
+        size="large"
+        color="default"
+        sx={{
+          position: "absolute",
+          bottom: isMobile ? "-4rem" : "50%",
+          left: isMobile ? "30%" : "-3rem",
+          color: theme.palette.secondary.A100,
+        }}
+      >
+        <LeftOutlined />
+      </IconButton>
+      <IconButton
+        onClick={goToNextElement}
+        size="large"
+        color="default"
+        sx={{
+          position: "absolute",
+          bottom: isMobile ? "-4rem" : "50%",
+          right: isMobile ? "30%" : "-3rem",
+          color: theme.palette.secondary.A100,
+        }}
+      >
+        <RightOutlined />
+      </IconButton>
+
+      {Exit && <Navigate to={`/elementos/${elementType}`} replace={true} />}
+
       {/*Header de la vista*/}
       <Grid
         container
@@ -119,7 +187,7 @@ const VistaEquipo = () => {
             {editMode ? (
               <Button
                 component={Link}
-                to={`/elementos/equipos/${id}`}
+                to={`/elementos/${elementType}/${id}`}
                 size="small"
                 variant="contained"
                 color="primary"
@@ -130,7 +198,7 @@ const VistaEquipo = () => {
             ) : (
               <Button
                 component={Link}
-                to={`/elementos/equipos/${id}/edit`}
+                to={`/elementos/${elementType}/${id}/edit`}
                 size="small"
                 variant="contained"
                 color="primary"
@@ -139,7 +207,7 @@ const VistaEquipo = () => {
                 modo edición
               </Button>
             )}
-            <IconButton component={Link} to={`/elementos/equipos`}>
+            <IconButton component={Link} to={`/elementos/${elementType}`}>
               <CloseOutlined />
             </IconButton>
           </Stack>
@@ -163,7 +231,7 @@ const VistaEquipo = () => {
           md={8}
           lg={8}
           sx={{
-            p: 2,
+            p: 3,
             display: isMobile && indexBottomNavigation !== 0 ? "none" : "",
             height: "100%",
             overflow: "auto",
@@ -188,11 +256,77 @@ const VistaEquipo = () => {
           }}
         >
           <Stack direction="column" spacing={2}>
+            <Stack direction="column" spacing={1}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                spacing={0.5}
+              >
+                <Typography variant="h2">Compresor de Aire</Typography>
+                <Typography variant="caption" color="textSecondary">
+                  {"Actualizado " + moment().calendar()}
+                </Typography>
+              </Stack>
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={0.5}
+              >
+                <Typography
+                  variant="Gutter Bottom"
+                  color="textSecondary"
+                  sx={{ pr: 1 }}
+                >
+                  Identificador:
+                </Typography>
+                <Card
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: "#c70039",
+                    width: "1rem",
+                    height: "1rem",
+                  }}
+                />
+                <Typography variant="Gutter Bottom" color="textPrimaery">
+                  #C70039
+                </Typography>
+              </Stack>
+              <Box sx={{ pt: 2 }}>
+                <TextField
+                  variant="outlined"
+                  label="Descripción"
+                  multiline
+                  fullWidth
+                  rows={4}
+                  defaultValue="Escribe la descripción del elemento aquí"
+                />
+              </Box>
+            </Stack>
             <Card sx={{ height: "300px" }} variant="outlined">
-              card
+              <Typography variant="h5" sx={{ p: 2 }}>
+                Información
+              </Typography>
+              <Divider />
             </Card>
             <Card sx={{ height: "300px" }} variant="outlined">
-              card
+              <Typography variant="h5" sx={{ p: 2 }}>
+                Actividades
+              </Typography>
+              <Divider />
+            </Card>
+            <Card sx={{ height: "300px" }} variant="outlined">
+              <Typography variant="h5" sx={{ p: 2 }}>
+                Componentes
+              </Typography>
+              <Divider />
+            </Card>
+            <Card sx={{ height: "300px" }} variant="outlined">
+              <Typography variant="h5" sx={{ p: 2 }}>
+                Insumos y Repuestos
+              </Typography>
+              <Divider />
             </Card>
           </Stack>
         </Grid>
