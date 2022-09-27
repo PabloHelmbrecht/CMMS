@@ -6,9 +6,8 @@ import {
   Typography,
   Tooltip,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@mui/material";
-
 
 //third-party imports
 import React, { useState } from "react";
@@ -16,7 +15,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
 //icons imports
-import { EditFilled, EyeFilled } from '@ant-design/icons';
+import { EditFilled, EyeFilled } from "@ant-design/icons";
 
 // project imports
 import MainCard from "../../../components/MainCard";
@@ -29,50 +28,48 @@ import Error404 from "../../extra-pages/Error404";
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const Equipos = () => {
-
   // Función para obtener los breakpoints
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   //Obtenemos el id pasado por router
-  const { id, elementType } = useParams()
+  const { id, elementType } = useParams();
 
   //Declaro el objeto elemento a partir de la clase Element Definition
-  const element = new ElementDefinition(elementType)
+  const element = new ElementDefinition(elementType);
 
-    //Guardar estadísticas en un state para su persistencia
+  //Guardar estadísticas en un state para su persistencia
   const [statistics, setStatistics] = useState({
     Card1: {
       title: "Total de Equipos",
       count: "4.000",
       percentage: -24,
-      extra: "20,000"
+      extra: "20,000",
     },
     Card2: {
       title: "Componentes por Equipo",
       count: "4.000",
       percentage: 24,
-      extra: "20,000"
+      extra: "20,000",
     },
     Card3: {
       title: "Elementos por Equipo",
       count: "4.000",
       percentage: 24,
-      extra: "20,000"
+      extra: "20,000",
     },
     Card4: {
       title: "Actividades por Equipo",
       count: "4.000",
       percentage: 24,
-      extra: "20,000"
-    }
+      extra: "20,000",
+    },
   });
 
   //Handler para selección de fila en data grid
-  const [rowSelected, setRowSelected] = useState(id)
+  const [rowSelected, setRowSelected] = useState(id);
 
-  return (
-    element.exists()?
+  return element.exists() ? (
     <>
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
         {/* Fila 1: Titulo Indicadores */}
@@ -139,31 +136,43 @@ const Equipos = () => {
 
             {/* Botones de Tabla */}
             <Grid item>
-              <Stack direction="row" alignItems="center" spacing={1} sx={{ pt: isMobile ? 1 : 0 }} >
-                {rowSelected && <Tooltip title={`Ver ${element.singular()} seleccionado`}><Button
-                  size="small"
-                  color={"primary"}
-                  variant={"contained"}
-                  startIcon={<EyeFilled />}
-                  component={Link}
-                  to={`/elementos/${element.getName()}/${rowSelected} `}
-
-                >
-                  Ver
-                </Button></Tooltip>}
-                {rowSelected && <Tooltip title={`Editar ${element.singular()} seleccionado`}><Button
-                  size="small"
-                  color={"primary"}
-                  variant={"outlined"}
-                  startIcon={<EditFilled />}
-                  component={Link}
-                  to={`/elementos/${element.getName()}/${rowSelected}/edit `}
-                >
-                  Editar
-                </Button></Tooltip>}
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                sx={{ pt: isMobile ? 1 : 0 }}
+              >
+                {rowSelected && (
+                  <Tooltip title={`Ver ${element.singular()} seleccionado`}>
+                    <Button
+                      size="small"
+                      color={"primary"}
+                      variant={"contained"}
+                      startIcon={<EyeFilled />}
+                      component={Link}
+                      to={`/elementos/${element.getName()}/${rowSelected} `}
+                    >
+                      Ver
+                    </Button>
+                  </Tooltip>
+                )}
+                {rowSelected && (
+                  <Tooltip title={`Editar ${element.singular()} seleccionado`}>
+                    <Button
+                      size="small"
+                      color={"primary"}
+                      variant={"outlined"}
+                      startIcon={<EditFilled />}
+                      component={Link}
+                      to={`/elementos/${element.getName()}/${rowSelected}/edit `}
+                    >
+                      Editar
+                    </Button>
+                  </Tooltip>
+                )}
                 <Button
                   size="small"
-                  onClick={() => { }}
+                  onClick={() => {}}
                   color={rowSelected ? "secondary" : "primary"}
                   variant={"contained"}
                 >
@@ -171,7 +180,7 @@ const Equipos = () => {
                 </Button>
                 <Button
                   size="small"
-                  onClick={() => { }}
+                  onClick={() => {}}
                   color={rowSelected ? "secondary" : "primary"}
                   variant={"outlined"}
                 >
@@ -189,8 +198,8 @@ const Equipos = () => {
       </Grid>
       <VistaEquipo />
     </>
-    :
-    <Error404/>
+  ) : (
+    <Error404 />
   );
 };
 

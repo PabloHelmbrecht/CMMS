@@ -1,9 +1,9 @@
 // project import
-import pages from './pages';
-import dashboard from './dashboard';
-import utilities from './utilities';
-import support from './support';
-import elementos from './elementos'
+//import pages from './pages';
+import dashboard from "./dashboard";
+import utilities from "./utilities";
+import support from "./support";
+import elementos from "./elementos";
 
 // ==============================|| MENU ITEMS ||============================== //
 
@@ -12,8 +12,7 @@ import elementos from './elementos'
 ! - pages
 */
 const menuItems = {
-    items: [dashboard/*, pages*/,elementos, utilities, support]
+  items: [dashboard /*, pages*/, elementos, utilities, support],
 };
-
 
 export default menuItems;
