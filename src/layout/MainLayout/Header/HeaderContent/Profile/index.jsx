@@ -16,7 +16,7 @@ import {
   Stack,
   Tab,
   Tabs,
-  Typography
+  Typography,
 } from "@mui/material";
 
 // project import
@@ -30,7 +30,7 @@ import avatar1 from "../../../../../assets/images/users/avatar-1.png";
 import {
   LogoutOutlined,
   SettingOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons";
 
 // tab panel wrapper
@@ -51,13 +51,13 @@ function TabPanel({ children, value, index, ...other }) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `profile-tab-${index}`,
-    "aria-controls": `profile-tabpanel-${index}`
+    "aria-controls": `profile-tabpanel-${index}`,
   };
 }
 
@@ -98,7 +98,7 @@ const Profile = () => {
           p: 0.25,
           bgcolor: open ? iconBackColorOpen : "transparent",
           borderRadius: 1,
-          "&:hover": { bgcolor: "secondary.lighter" }
+          "&:hover": { bgcolor: "secondary.lighter" },
         }}
         aria-label="open profile"
         ref={anchorRef}
@@ -112,7 +112,7 @@ const Profile = () => {
             src={avatar1}
             sx={{ width: 32, height: 32 }}
           />
-          <Typography variant="subtitle1">John Doe</Typography>
+          <Typography variant="subtitle1">Mantenimiento</Typography>
         </Stack>
       </ButtonBase>
       <Popper
@@ -127,10 +127,10 @@ const Profile = () => {
             {
               name: "offset",
               options: {
-                offset: [0, 9]
-              }
-            }
-          ]
+                offset: [0, 9],
+              },
+            },
+          ],
         }}
       >
         {({ TransitionProps }) => (
@@ -143,8 +143,8 @@ const Profile = () => {
                   minWidth: 240,
                   maxWidth: 290,
                   [theme.breakpoints.down("md")]: {
-                    maxWidth: 250
-                  }
+                    maxWidth: 250,
+                  },
                 }}
               >
                 <ClickAwayListener onClickAway={handleClose}>
@@ -167,7 +167,9 @@ const Profile = () => {
                               sx={{ width: 32, height: 32 }}
                             />
                             <Stack>
-                              <Typography variant="h6">John Doe</Typography>
+                              <Typography variant="h6">
+                                Mantenimiento
+                              </Typography>
                               <Typography variant="body2" color="textSecondary">
                                 UI/UX Designer
                               </Typography>
@@ -200,13 +202,13 @@ const Profile = () => {
                                 flexDirection: "row",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                textTransform: "capitalize"
+                                textTransform: "capitalize",
                               }}
                               icon={
                                 <UserOutlined
                                   style={{
                                     marginBottom: 0,
-                                    marginRight: "10px"
+                                    marginRight: "10px",
                                   }}
                                 />
                               }
@@ -219,13 +221,13 @@ const Profile = () => {
                                 flexDirection: "row",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                textTransform: "capitalize"
+                                textTransform: "capitalize",
                               }}
                               icon={
                                 <SettingOutlined
                                   style={{
                                     marginBottom: 0,
-                                    marginRight: "10px"
+                                    marginRight: "10px",
                                   }}
                                 />
                               }

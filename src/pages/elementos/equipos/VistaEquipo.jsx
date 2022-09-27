@@ -15,9 +15,9 @@ import {
   useMediaQuery,
   BottomNavigation,
   BottomNavigationAction,
-  Badge,
-} from "@mui/material";
-import { Link, useLocation, useParams } from "react-router-dom";
+  Badge
+} from "@mui/material"
+rt { Link, useLocation, useParams } from "react-router-dom";
 
 //icons imports
 import {
