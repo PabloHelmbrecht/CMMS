@@ -18,6 +18,7 @@ import {
   Badge,
   Box,
   Typography,
+  MenuItem,
 } from "@mui/material";
 import { Link, useLocation, useParams, Navigate } from "react-router-dom";
 
@@ -309,6 +310,28 @@ const VistaEquipo = () => {
                 Información
               </Typography>
               <Divider />
+              <Grid container spacing={2} sx={{ p: 2 }}>
+                <Grid item xs={8}>
+                  <TextField label="Ubicación" type="search" fullWidth />
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField select label="Estado" fullWidth>
+                    <MenuItem key={"Activo"} value={"Activo"}>
+                      Activo
+                    </MenuItem>
+                    <MenuItem key={"Inactivo"} value={"Inactivo"}>
+                      Inactivo
+                    </MenuItem>
+                  </TextField>
+                </Grid>
+              </Grid>
+            </Card>
+            <Card sx={{ height: "300px" }} variant="outlined">
+              <Typography variant="h5" sx={{ p: 2 }}>
+                Componentes
+              </Typography>
+
+              <Divider />
             </Card>
             <Card sx={{ height: "300px" }} variant="outlined">
               <Typography variant="h5" sx={{ p: 2 }}>
@@ -318,7 +341,7 @@ const VistaEquipo = () => {
             </Card>
             <Card sx={{ height: "300px" }} variant="outlined">
               <Typography variant="h5" sx={{ p: 2 }}>
-                Componentes
+                Fallas y Paradas
               </Typography>
               <Divider />
             </Card>
