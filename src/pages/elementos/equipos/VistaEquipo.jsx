@@ -78,7 +78,7 @@ const VistaEquipo = () => {
   const [textFieldFocus, setTextFieldFocus] = useState(false);
 
   //Estado para detectar si hay un comentario guardado
-  const [commentExist, setCommentExist] = useState(true);
+  const [commentExist, setCommentExist] = useState(false);
 
   //Imágenes adjuntas
   const [imagesAttached, setImagesAttached] = useState({ length: 0 });
@@ -98,11 +98,11 @@ const VistaEquipo = () => {
   }, [id, mode, location]);
 
   //handler para adjuntar imágenes
-  function handleImagesAttached(e) {
+  const handleImagesAttached = (e) => {
     const files = e.target.files;
 
     setImagesAttached({ files, length: parseInt(files.length, 10) });
-  }
+  };
 
   //Ir al elemento anterior
   const goToPreviousElement = () => {};
@@ -110,6 +110,13 @@ const VistaEquipo = () => {
   //Ir al siguiente elemento
   const goToNextElement = () => {};
 
+  //Handler para ocular y mostrar navegación al escribir
+  const handleFocus = () => {
+    setTextFieldFocus(true);
+  };
+  const handleBlur = () => {
+    setTextFieldFocus(false);
+  };
   //Listen to keyboard event
   useEffect(() => {
     if (open) {
@@ -259,12 +266,30 @@ const VistaEquipo = () => {
           <Stack direction="column" spacing={2}>
             <Stack direction="column" spacing={1}>
               <Stack
-                direction="row"
+                direction={isMobile ? "column-reverse" : "row"}
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems={isMobile ? "left" : "center"}
                 spacing={0.5}
               >
-                <Typography variant="h2">Compresor de Aire</Typography>
+                {editMode ? (
+                  <TextField
+                    placeholder="Nombre del Elemento"
+                    variant="standard"
+                    inputProps={{
+                      style: {
+                        fontSize: theme.typography.h2.fontSize,
+                        fontWeight: theme.typography.h2.fontWeight,
+                        lineHeight: theme.typography.h2.lineHeight,
+                      },
+                    }}
+                    sx={{ width: "80%", mb: 2 }}
+                    defaultValue="Compresor de Aire"
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                ) : (
+                  <Typography variant="h2">Compresor de Aire</Typography>
+                )}
                 <Typography variant="caption" color="textSecondary">
                   {"Actualizado " + moment().calendar()}
                 </Typography>
@@ -302,20 +327,37 @@ const VistaEquipo = () => {
                   fullWidth
                   rows={4}
                   defaultValue="Escribe la descripción del elemento aquí"
+                  InputProps={{ readOnly: !editMode }}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
                 />
               </Box>
             </Stack>
-            <Card sx={{ height: "300px" }} variant="outlined">
+            <Card variant="outlined">
               <Typography variant="h5" sx={{ p: 2 }}>
                 Información
               </Typography>
               <Divider />
-              <Grid container spacing={2} sx={{ p: 2 }}>
-                <Grid item xs={8}>
-                  <TextField label="Ubicación" type="search" fullWidth />
+              <Grid container spacing={3} sx={{ p: 2 }}>
+                <Grid item xs={12} lg={8}>
+                  <TextField
+                    label="Ubicación"
+                    type="search"
+                    fullWidth
+                    InputProps={{ readOnly: !editMode }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
                 </Grid>
-                <Grid item xs={4}>
-                  <TextField select label="Estado" fullWidth>
+                <Grid item xs={12} sm={6} lg={4}>
+                  <TextField
+                    select
+                    label="Estado"
+                    fullWidth
+                    InputProps={{ readOnly: !editMode }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  >
                     <MenuItem key={"Activo"} value={"Activo"}>
                       Activo
                     </MenuItem>
@@ -323,6 +365,132 @@ const VistaEquipo = () => {
                       Inactivo
                     </MenuItem>
                   </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6} lg={4}>
+                  <TextField
+                    fullWidth
+                    label="Fecha de Creación"
+                    defaultValue={moment().format("LL")}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} lg={4}>
+                  <TextField
+                    select
+                    label="Nivel de Criticidad"
+                    fullWidth
+                    InputProps={{ readOnly: !editMode }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  >
+                    <MenuItem key={"Muy Alta"} value={"Muy Alta"}>
+                      Muy Alta
+                    </MenuItem>
+                    <MenuItem key={"Alta"} value={"Alta"}>
+                      Alta
+                    </MenuItem>
+                    <MenuItem key={"Media"} value={"Media"}>
+                      Media
+                    </MenuItem>
+                    <MenuItem key={"Baja"} value={"Baja"}>
+                      Baja
+                    </MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6} lg={4}>
+                  <TextField
+                    select
+                    label="Nivel de Mantenimiento"
+                    fullWidth
+                    InputProps={{ readOnly: !editMode }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  >
+                    <MenuItem key={"Correctivo"} value={"Correctivo"}>
+                      Correctivo
+                    </MenuItem>
+                    <MenuItem
+                      key={"Preventivo Sistemático"}
+                      value={"Preventivo Sistemático"}
+                    >
+                      Preventivo Sistemático
+                    </MenuItem>
+                    <MenuItem
+                      key={"Preventivo Condicional"}
+                      value={"Preventivo Condicional"}
+                    >
+                      Preventivo Condicional
+                    </MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    select
+                    label="Proovedor"
+                    fullWidth
+                    InputProps={{ readOnly: !editMode }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  >
+                    <MenuItem key={"Forel"} value={"Forel"}>
+                      Forel
+                    </MenuItem>
+                    <MenuItem key={"Turomas"} value={"Turomas"}>
+                      Turomas
+                    </MenuItem>
+                    <MenuItem key={"Ashton"} value={"Ashton"}>
+                      Ashton
+                    </MenuItem>
+                    <MenuItem key={"Golive"} value={"Golive"}>
+                      Golive
+                    </MenuItem>
+                    <MenuItem key={"Glaston"} value={"Glaston"}>
+                      Glaston
+                    </MenuItem>
+                    <MenuItem key={"Otro"} value={"Otro"}>
+                      Otro
+                    </MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    InputProps={{ readOnly: !editMode }}
+                    label="SKU del Proovedor"
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    InputProps={{ readOnly: !editMode }}
+                    label="Fabricante"
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  {editMode ? (
+                    <TextField
+                      fullWidth
+                      InputProps={{ readOnly: !editMode }}
+                      label="Link de Documentación"
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
+                    />
+                  ) : (
+                    <Button
+                      variant="contained"
+                      sx={{ height: "100%", width: "100%" }}
+                    >
+                      Documentación del Elemento
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </Card>
@@ -470,11 +638,10 @@ const VistaEquipo = () => {
                 placeholder="Comenta..."
                 multiline
                 rows={3}
-                onFocus={(e) => {
-                  setTextFieldFocus(true);
-                }}
-                onBlur={(e) => {
-                  setTextFieldFocus(false);
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onChange={(e) => {
+                  setCommentExist(e.target.value);
                 }}
               />
             </Grid>
@@ -500,7 +667,7 @@ const VistaEquipo = () => {
                     <CameraOutlined />
                   </Badge>
                 </IconButton>
-                <IconButton color="primary">
+                <IconButton color={commentExist ? "primary" : "secondary"}>
                   <SendOutlined />
                 </IconButton>
               </Stack>
