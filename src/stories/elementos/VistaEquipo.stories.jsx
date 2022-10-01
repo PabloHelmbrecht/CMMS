@@ -1,15 +1,15 @@
 import React from 'react';
 
-import VistaEquipo from '../../pages/elementos/equipos/VistaEquipo';
+import VistaElemento from '../../pages/elementos/equipos/VistaElemento';
 
 export default {
-    title: 'Elementos/VistaEquipo',
-    component: VistaEquipo,
+    title: 'Elementos/VistaElemento',
+    component: VistaElemento,
     
 };
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = (args) => <VistaEquipo {...args} />;
+const Template = (args) => <VistaElemento {...args} />;
 
 export const ViewMode = Template.bind({});
 ViewMode.args = {

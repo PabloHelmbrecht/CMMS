@@ -25,8 +25,8 @@ const Shadow = Loadable(
 const AntIcons = Loadable(
   lazy(() => import("../pages/components-overview/AntIcons"))
 );
-const Equipos = Loadable(
-  lazy(() => import("../pages/elementos/equipos/Equipos"))
+const Elementos = Loadable(
+  lazy(() => import("../pages/elementos/equipos/Elementos"))
 );
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -37,57 +37,57 @@ const MainRoutes = {
   children: [
     {
       path: "/",
-      element: <DashboardDefault />
+      element: <DashboardDefault />,
     },
     {
       path: "color",
-      element: <Color />
+      element: <Color />,
     },
     {
       path: "dashboard",
       children: [
         {
           path: "default",
-          element: <DashboardDefault />
-        }
-      ]
+          element: <DashboardDefault />,
+        },
+      ],
     },
     {
       path: "sample-page",
-      element: <SamplePage />
+      element: <SamplePage />,
     },
     {
       path: "shadow",
-      element: <Shadow />
+      element: <Shadow />,
     },
     {
       path: "typography",
-      element: <Typography />
+      element: <Typography />,
     },
     {
       path: "icons/ant",
-      element: <AntIcons />
+      element: <AntIcons />,
     },
     {
       path: "elementos/:elementType",
       children: [
         {
           path: "",
-          element: <Equipos />,
+          element: <Elementos />,
         },
         {
           path: ":id",
-          element: <Equipos />,
+          element: <Elementos />,
           children: [
             {
               path: ":mode",
-              element: <Equipos />,
-            }
-          ]
-        }
-      ]
-    }
-  ]
+              element: <Elementos />,
+            },
+          ],
+        },
+      ],
+    },
+  ],
 };
 
 export default MainRoutes;

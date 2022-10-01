@@ -50,7 +50,7 @@ const Clipboard = async () => {
   await navigator.clipboard.writeText(useLocation().pathname);
 };
 
-const VistaEquipo = () => {
+const VistaElemento = () => {
   //Obtenemos el tema
   const theme = useTheme();
 
@@ -133,6 +133,7 @@ const VistaEquipo = () => {
       PaperProps={{
         style: {
           height: useWindowDimensions().height * (isMobile ? 0.8 : 0.9) + "px",
+          width: "90%",
           overflow: "inherit",
         },
       }}
@@ -494,26 +495,39 @@ const VistaEquipo = () => {
                 </Grid>
               </Grid>
             </Card>
-            <Card sx={{ height: "300px" }} variant="outlined">
+            <Card variant="outlined">
               <Typography variant="h5" sx={{ p: 2 }}>
                 Componentes
               </Typography>
-
               <Divider />
+              <Grid container spacing={3} sx={{ p: 2 }}>
+                {editMode && (
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Buscar componentes"
+                      type="search"
+                      fullWidth
+                      InputProps={{ readOnly: !editMode }}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
+                    />
+                  </Grid>
+                )}
+              </Grid>
             </Card>
-            <Card sx={{ height: "300px" }} variant="outlined">
+            <Card variant="outlined">
               <Typography variant="h5" sx={{ p: 2 }}>
                 Actividades
               </Typography>
               <Divider />
             </Card>
-            <Card sx={{ height: "300px" }} variant="outlined">
+            <Card variant="outlined">
               <Typography variant="h5" sx={{ p: 2 }}>
                 Fallas y Paradas
               </Typography>
               <Divider />
             </Card>
-            <Card sx={{ height: "300px" }} variant="outlined">
+            <Card variant="outlined">
               <Typography variant="h5" sx={{ p: 2 }}>
                 Insumos y Repuestos
               </Typography>
@@ -725,4 +739,4 @@ const VistaEquipo = () => {
   );
 };
 
-export default VistaEquipo;
+export default VistaElemento;
