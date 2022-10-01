@@ -20,14 +20,14 @@ import { EditFilled, EyeFilled } from "@ant-design/icons";
 // project imports
 import MainCard from "../../../components/MainCard";
 import StatisticsCard from "../../../components/cards/statistics/StatisticsCard";
-import DataGridEquipos from "./DataGridEquipos.jsx";
-import VistaEquipo from "./VistaEquipo.jsx";
+import DataGridElementos from "./DataGridElementos.jsx";
+import VistaElemento from "./VistaElemento.jsx";
 import ElementDefinition from "../../../utils/ElementDefinition";
 import Error404 from "../../extra-pages/Error404";
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const Equipos = () => {
+const Elementos = () => {
   // Función para obtener los breakpoints
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -192,15 +192,15 @@ const Equipos = () => {
 
           {/*Tabla*/}
           <MainCard content={false} sx={{ mt: 1.5 }}>
-            <DataGridEquipos onSelection={setRowSelected} />
+            <DataGridElementos onSelection={setRowSelected} />
           </MainCard>
         </Grid>
       </Grid>
-      <VistaEquipo />
+      <VistaElemento />
     </>
   ) : (
     <Error404 />
   );
 };
 
-export default Equipos;
+export default Elementos;

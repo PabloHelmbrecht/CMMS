@@ -160,7 +160,7 @@ const columns = [
 
 
 //Data Grid Declaration
-export default function DataGridEquipos({ onSelection }) {
+export default function DataGridElementos({ onSelection }) {
 
   // Función para obtener los breakpoints
   const theme = useTheme()
