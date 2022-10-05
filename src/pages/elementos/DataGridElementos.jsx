@@ -5,11 +5,11 @@ import moment from "moment";
 import "moment/locale/es";
 
 //Project Imports
-import DataGrid from "../../../components/datagrid-components/DataGrid";
-import renderCellExpand from "../../../components/datagrid-components/CellExpand";
+import DataGrid from "../../components/datagrid-components/DataGrid";
+import renderCellExpand from "../../components/datagrid-components/CellExpand";
 
 //API Imports
-import equiposCall from "../../../api/elementos/equipos";
+import equiposCall from "../../api/elementos/equipos";
 
 //MUI Imports
 import { Chip, useMediaQuery, useTheme } from "@mui/material";
