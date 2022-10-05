@@ -39,11 +39,11 @@ import {
 } from "@ant-design/icons";
 
 //project imports
-import useWindowDimensions from "../../../utils/WindowDimensions";
-import UpdateMessage from "../../../components/elementview-components/UpdateMessage";
-import avatar1 from "../../../assets/images/users/avatar-1.png";
-import imageArrayDB from "../../../api/elementos/imageArrayDB.js";
-import useKeyPress from "../../../utils/useKeyPress";
+import useWindowDimensions from "../../utils/WindowDimensions";
+import UpdateMessage from "../../components/elementview-components/UpdateMessage";
+import avatar1 from "../../assets/images/users/avatar-1.png";
+import imageArrayDB from "../../api/elementos/imageArrayDB.js";
+import useKeyPress from "../../utils/useKeyPress";
 
 /*Función para copiar link no est{a listo todavía*/
 const Clipboard = async () => {

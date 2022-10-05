@@ -18,12 +18,12 @@ import { Link } from "react-router-dom";
 import { EditFilled, EyeFilled } from "@ant-design/icons";
 
 // project imports
-import MainCard from "../../../components/MainCard";
-import StatisticsCard from "../../../components/cards/statistics/StatisticsCard";
+import MainCard from "../../components/MainCard";
+import StatisticsCard from "../../components/cards/statistics/StatisticsCard";
 import DataGridElementos from "./DataGridElementos.jsx";
 import VistaElemento from "./VistaElemento.jsx";
-import ElementDefinition from "../../../utils/ElementDefinition";
-import Error404 from "../../extra-pages/Error404";
+import ElementDefinition from "../../utils/ElementDefinition";
+import Error404 from "../extra-pages/Error404";
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
