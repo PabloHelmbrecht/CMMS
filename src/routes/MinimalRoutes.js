@@ -25,6 +25,10 @@ const LoginRoutes = {
       path: "register",
       element: <AuthRegister />,
     },
+    {
+      path: "*",
+      element: <Error404 />,
+    },
   ],
 };
 
