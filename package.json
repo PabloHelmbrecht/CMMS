@@ -57,9 +57,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev-vercel": "vercel dev",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "env": "vercel env pull"
   },
   "eslintConfig": {
     "extends": [
@@ -90,6 +92,7 @@
     ]
   },
   "devDependencies": {
+    "@vercel/node": "^2.5.23",
     "babel-plugin-named-exports-order": "^0.0.2",
     "webpack": "^5.74.0"
   },
