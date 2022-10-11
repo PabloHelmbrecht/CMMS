@@ -18,7 +18,7 @@ export default class elementDAO extends DAO {
           { "comentarios.$": 1 }
         );
       };
-      const commentIndex = uniqueIndex(checkerCallback);
+      const commentIndex = await uniqueIndex(checkerCallback);
 
       //Push the index into the comment
       comment = { identificador: commentIndex, ...comment };
@@ -61,7 +61,20 @@ export default class elementDAO extends DAO {
     }
   }
 
-  async updateCommentById() {}
+  async updateCommentById(commentIndex, newText) {
+    try {
+      return await this.model.update(
+        { "comentarios.identificador": commentIndex },
+        {  $set: {"comentarios.$.comentario": abc} },
+        { upsert: false }
+      );
+    } catch (error) {
+      console.log(
+        `No se pudo actualizar el comentario ${commentIndex}. ${error}`
+      );
+      throw new Error(error);
+    }
+  }
 
   async deleteCommentById() {}
 

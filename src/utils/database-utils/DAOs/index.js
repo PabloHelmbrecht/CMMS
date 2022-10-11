@@ -67,9 +67,10 @@ export default class DAO {
 
   async updateById(index, newDocument) {
     try {
-      return await this.model.updateOne(
+      return await this.model.update(
         { identificador: index },
-        { ...newDocument, fechaModificación: new Date() }
+        { ...newDocument, fechaModificación: new Date() },
+        { upsert: true }
       );
     } catch (error) {
       console.log(

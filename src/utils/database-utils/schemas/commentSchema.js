@@ -7,6 +7,19 @@ import index, { validator } from "../hexcode";
 const { Schema } = mongoose;
 
 export default new Schema({
+  identificador: {
+    type: String,
+    index: true,
+    unique: false,
+    required: true,
+    uppercase: true,
+    default: index(),
+    immutable: true,
+    validate: {
+      validator: validator,
+      message: "Identificador no es un código hexadecimal",
+    },
+  },
   usuario: {
     type: String,
   },
@@ -14,7 +27,12 @@ export default new Schema({
     type: String,
     required: true,
   },
-  fecha: {
+  fechaCreación: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
+  fechaModificación: {
     type: Date,
     default: Date.now,
     required: true,
