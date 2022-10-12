@@ -41,6 +41,12 @@ export default new Schema({
     },
     elementoPadre: {
         type: String,
+        index: true,
+        uppercase: true,
+        validate: {
+            validator: validator,
+            message: 'Elemento padre no es válido'
+        }
     },
     elementosHijos: {
         type: [String]

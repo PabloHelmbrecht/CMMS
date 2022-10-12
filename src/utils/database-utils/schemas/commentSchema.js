@@ -22,6 +22,7 @@ export default new Schema({
   },
   usuario: {
     type: String,
+    default: 'Anónimo'
   },
   comentario: {
     type: String,
