@@ -92,6 +92,17 @@ export default class DAO {
     }
   }
 
+  async query(query){
+    try {
+      return await this.model.find(query)
+    } catch (error) {
+      console.log(
+        `No se pudo ejecutar la búsqueda. ${error}`
+      )
+      throw new Error(error)
+    }
+  }
+
   async deleteAll() {
     try {
       await this.model.deleteMany({})

@@ -27,7 +27,7 @@ export default class elementDAO extends DAO {
       const element = await this.model.create(document)
 
       //Fill the parent field in the children
-      this.addParentToChildren(index)
+      await this.addParentToChildren(index)
 
       return element
 
@@ -42,7 +42,7 @@ export default class elementDAO extends DAO {
   async updateById(index, newDocument) {
     try {
       //Delete the parent field from the children
-      this.deleteParentFromChildren(index)
+      await this.deleteParentFromChildren(index)
 
       // Update the element
       await this.model.updateOne(
@@ -52,7 +52,7 @@ export default class elementDAO extends DAO {
       )
 
       //Fill the parent field in the children
-      this.addParentToChildren(index)
+      await this.addParentToChildren(index)
 
       return `Elemento ${index} actualizado correctamente`
     } catch (error) {
@@ -66,7 +66,7 @@ export default class elementDAO extends DAO {
   async deleteById(index) {
     try {
       //Fill the parent field in the children
-      this.deleteParentFromChildren(index)
+      await this.deleteParentFromChildren(index)
 
       //Delete element
       await this.model.deleteOne({ identificador: index })
@@ -185,21 +185,28 @@ export default class elementDAO extends DAO {
       throw new Error(error);
     }
   }
-
+//Falta corregir
   async addParentToChildren(elementIndex) {
     try {
-      const childrenIndexArray = await this.model.findOne({ identificador: elementIndex })
+      console.log("Agregando padres")
+      const children = await this.model.find({ identificador: elementIndex }).map(element => element.identificador)
+      const childrenIndexArray = Array.isArray(children)?children.map(element => element.identificador):[children.identificador]
+      console.log(childrenIndexArray)
       if (!childrenIndexArray) return
       await this.model.updateMany({ identificador: { $in: childrenIndexArray } }, { elementoPadre: elementIndex })
     } catch (error) {
+      
       console.log(`No se pudieron actualizar los elementos hijo de ${elementIndex}. ${error}`)
     }
   }
 
   async deleteParentFromChildren(elementIndex) {
     try {
-      const childrenIndexArray = await this.model.findOne({ identificador: elementIndex })
+      console.log("Eliminando padres")
+      const children = (await this.model.find({ identificador: elementIndex }))
+      const childrenIndexArray = Array.isArray(children)?children.map(element => element.identificador):[children.identificador]
       if (!childrenIndexArray) return
+      console.log(childrenIndexArray)
       await this.model.updateMany({ identificador: { $in: childrenIndexArray } }, { $unset: { elementoPadre: '' } })
     } catch (error) {
       console.log(`No se pudieron eliminar los elementos hijos de ${elementIndex}. ${error}`)

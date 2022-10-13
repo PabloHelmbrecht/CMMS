@@ -12,7 +12,7 @@ export default async function handler(request, response) {
       response.status(200).json({
         status: 200,
         method: request.method,
-        response: (await elements.getAll()) || {},
+        response: (await (body?elements.query(body):elements.getAll())) || {},
       });
     } catch (error) {
       response.status(500).json({
