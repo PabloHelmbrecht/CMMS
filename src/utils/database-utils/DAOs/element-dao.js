@@ -16,65 +16,64 @@ export default class elementDAO extends DAO {
       const checkerCallback = async (indexToCheck) => {
         return await this.model.findOne({
           identificador: indexToCheck,
-        })
-      }
-      const index = await uniqueIndex(checkerCallback)
+        });
+      };
+      const index = await uniqueIndex(checkerCallback);
 
       //Push the index into the document
-      document = { identificador: index, ...document }
+      document = { identificador: index, ...document };
 
       // Create the document and retrieve it
-      const element = await this.model.create(document)
+      const element = await this.model.create(document);
 
       //Fill the parent field in the children
-      await this.addParentToChildren(index)
+      await this.addParentToChildren(index);
 
-      return element
-
+      return element;
     } catch (error) {
       console.log(
         `No se pudo crear el documento en ${this.schemaName}. ${error}`
-      )
-      throw new Error(error)
+      );
+      throw new Error(error);
     }
   }
 
   async updateById(index, newDocument) {
     try {
       //Delete the parent field from the children
-      await this.deleteParentFromChildren(index)
+      await this.deleteParentFromChildren(index);
 
       // Update the element
       await this.model.updateOne(
         { identificador: index },
         { ...newDocument, fechaModificación: new Date() },
         { upsert: true }
-      )
+      );
 
       //Fill the parent field in the children
-      await this.addParentToChildren(index)
+      await this.addParentToChildren(index);
 
-      return `Elemento ${index} actualizado correctamente`
+      return `Elemento ${index} actualizado correctamente`;
     } catch (error) {
       console.log(
         `No se pudo actualizar el elemento ${this.schemaName}: ${index}. ${error}`
-      )
-      throw new Error(error)
+      );
+      throw new Error(error);
     }
   }
 
   async deleteById(index) {
     try {
       //Fill the parent field in the children
-      await this.deleteParentFromChildren(index)
+      await this.deleteParentFromChildren(index);
 
       //Delete element
-      await this.model.deleteOne({ identificador: index })
+      await this.model.deleteOne({ identificador: index });
     } catch (error) {
       console.log(
         `No se pudo eliminar el elemento ${this.schemaName}: ${index}. ${error}`
-      )
-      throw new Error(error)
+      );
+      throw new Error(error);
     }
   }
 
@@ -109,8 +108,8 @@ export default class elementDAO extends DAO {
       await this.model.updateOne(
         { identificador: elementIndex },
         { $push: { comentarios: comment } }
-      )
-      return await this.getCommentById(commentIndex)
+      );
+      return await this.getCommentById(commentIndex);
     } catch (error) {
       console.log(
         `No se pudo guardar el comentario en el elemento ${element.nombre}. ${error}`
@@ -121,7 +120,7 @@ export default class elementDAO extends DAO {
 
   async deleteAllComments(elementIndex) {
     try {
-      return (await this.updateById(elementIndex, { comentarios: [] }))
+      return await this.updateById(elementIndex, { comentarios: [] });
     } catch (error) {
       console.log(
         `No se pudieron eliminar los comentarios del elemento ${elementIndex}. ${error}`
@@ -144,7 +143,7 @@ export default class elementDAO extends DAO {
 
   async updateCommentById(commentIndex, comment) {
     try {
-      const { comentario } = comment
+      const { comentario } = comment;
       return await this.model.updateOne(
         { "comentarios.identificador": commentIndex },
         { "comentarios.$.comentario": comentario },
@@ -159,58 +158,65 @@ export default class elementDAO extends DAO {
   }
 
   async deleteCommentById(elementIndex, commentIndex) {
-
     try {
       return await this.model.updateOne(
         { identificador: elementIndex },
         {
           $pull: { comentarios: { identificador: commentIndex } },
-        });
+        }
+      );
     } catch (error) {
       console.log(
         `No se pudo eliminar el comentario ${commentIndex}. ${error}`
       );
       throw new Error(error);
     }
-
   }
 
   //*-------------------------------- CHILDREN METHODS---------------------------------
 
   async getAllChildren(elementIndex) {
     try {
-      return await this.model.find({ elementoPadre: elementIndex })
+      return await this.model.find({ elementoPadre: elementIndex });
     } catch (error) {
-      console.log(`No se pudieron extraer los elementos hijos de ${elementIndex}. ${error}`)
+      console.log(
+        `No se pudieron extraer los elementos hijos de ${elementIndex}. ${error}`
+      );
       throw new Error(error);
     }
   }
-//Falta corregir
+  //Falta corregir
   async addParentToChildren(elementIndex) {
     try {
-      console.log("Agregando padres")
-      const children = await this.model.find({ identificador: elementIndex }).map(element => element.identificador)
-      const childrenIndexArray = Array.isArray(children)?children.map(element => element.identificador):[children.identificador]
-      console.log(childrenIndexArray)
-      if (!childrenIndexArray) return
-      await this.model.updateMany({ identificador: { $in: childrenIndexArray } }, { elementoPadre: elementIndex })
+      console.log("Agregando padres");
+      const element = await this.model.findOne({ identificador: elementIndex });
+      const childrenIndexArray = element.elementosHijos;
+      if (!childrenIndexArray) return;
+      await this.model.updateMany(
+        { identificador: { $in: childrenIndexArray } },
+        { elementoPadre: elementIndex }
+      );
     } catch (error) {
-      
-      console.log(`No se pudieron actualizar los elementos hijo de ${elementIndex}. ${error}`)
+      console.log(
+        `No se pudieron actualizar los elementos hijo de ${elementIndex}. ${error}`
+      );
     }
   }
 
   async deleteParentFromChildren(elementIndex) {
     try {
-      console.log("Eliminando padres")
-      const children = (await this.model.find({ identificador: elementIndex }))
-      const childrenIndexArray = Array.isArray(children)?children.map(element => element.identificador):[children.identificador]
-      if (!childrenIndexArray) return
-      console.log(childrenIndexArray)
-      await this.model.updateMany({ identificador: { $in: childrenIndexArray } }, { $unset: { elementoPadre: '' } })
+      console.log("Eliminando padres");
+      const element = await this.model.find({ identificador: elementIndex });
+      const childrenIndexArray = element.elementosHijos;
+      if (!childrenIndexArray) return;
+      await this.model.updateMany(
+        { identificador: { $in: childrenIndexArray } },
+        { $unset: { elementoPadre: "" } }
+      );
     } catch (error) {
-      console.log(`No se pudieron eliminar los elementos hijos de ${elementIndex}. ${error}`)
+      console.log(
+        `No se pudieron eliminar los elementos hijos de ${elementIndex}. ${error}`
+      );
     }
   }
-
 }
